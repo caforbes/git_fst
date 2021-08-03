@@ -15,14 +15,12 @@ Version 1.0 (Aug 3, 2021). This analyzer is still imperfect and contains many op
 Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/config`. Foma files constructed in this way are saved to `/config/foma` and read automatically.
 
 ```python
-# this loads the most complete FST
+# the most complete FST is built + loaded by default
 fst = git_fst.Parser()
-# or choose another configuration, or list your own json/foma file
+# or choose another configuration, or list your own foma file
 fst = git_fst.Parser('config/basic_east.json')
 fst = git_fst.Parser('path/to/git.foma')
 ```
-
-Dependencies: `foma`. Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
 
 Use `analyze` and `generate` functions to translate upper-lower forms and vvsa. If the input foma file writes to a binary file, the flookup utility is used for faster queries.
 
@@ -39,6 +37,12 @@ results = fst.lemmatize(word)
 for analysis in results:
 	print(analysis)
 ```
+
+## Dependencies
+
+You must install `foma`.
+
+Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
 
 ## more
 
