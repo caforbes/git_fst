@@ -1,0 +1,50 @@
+Multichar_Symbols
++IMP
++SUB
++MOD
+1=
+2=
+3=
+1PL
+2PL
+
+LEXICON Command
++IMP:	#;
+
+LEXICON SeriesIprocl
+@P.SI.1@1=:@P.SI.1@n^	SeriesIable ;
+@P.SI.2@2=:@P.SI.2@m^	SeriesIable ;
+
+LEXICON SeriesIable
+	RootModal ;
+	RootSubordinator ;
+	RootAuxiliary ;
+
+LEXICON SeriesI
+1:na 		# ;
+1PL:dip 	# ;
+2:mi 		# ;
+2:ma 		# ;
+2PL:sim 	# ;
+
+LEXICON Auxiliary
+@P.CAT.AUX@+AUX:@P.CAT.AUX@	SeriesIencl ;
+@P.CAT.AUX@+AUX:@P.CAT.AUX@	SecPosClitic ;
+@P.CAT.AUX@+AUX:@P.CAT.AUX@	CNClitic ;
+@P.CAT.AUX@+AUX:@P.CAT.AUX@	SX ;
+
+LEXICON Subordinator
++SUB:	SeriesIencl ;
+
+LEXICON Modal
++MOD:	SeriesIencl;
+
+LEXICON SeriesIencl
+@D.SI@=1:@D.SI@^n			# ;	! used = instead of ^ to condition special epenthesis
+@D.SI@=2:@D.SI@^m			# ;
+!=2=2PL:^m^sim	# ;
+	SeriesIencl3 ;
+
+LEXICON SeriesIencl3
+@D.SI@=3:@D.SI@^t			# ;
+				# ;

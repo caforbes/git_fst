@@ -1,0 +1,37 @@
+Multichar_Symbols
++VI
++VT
+-ATTR
+-ANTIP
+-CAUS
+-PASS
+-TR
+
+LEXICON IntransitiveVerb
++VI:	VIDerivation ;
+
+LEXICON VIDerivation
+!-CAUS:^in 	VTInflection ;
+	VIInflection ;
+
+LEXICON VIInflection
+-ATTR:^m	# ;
+	Word ;
+	SeriesII ;
+	daPlClitic ;
+	SX ;
+
+LEXICON TransitiveVerb
++VT:		VTDerivation ;
+
+LEXICON VTDerivation
+!-ANTIP:^asxw 	VIInflection ;
+!-PASS:^xw 		VIInflection ;
+	VTInflection ;
+	# ;		! for e.g. complement clause verbs
+@D.VAL.BIGT@-T:@D.VAL.BIGT@^T 			VTInflection ;
+
+LEXICON VTInflection
+		SeriesII ;
+-TR:^i	SeriesII ;
+		

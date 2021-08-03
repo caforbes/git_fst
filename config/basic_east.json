@@ -1,0 +1,40 @@
+{
+    "name": "git_basic_E",
+    "dictionary": "dict.csv",
+    "legal_categories": [
+        "noun",
+        "address form",
+        "transitive verb",
+        "intransitive verb",
+        "preverb",
+        "prenoun",
+        "modifier",
+        "adverb",
+        "command"
+    ],
+    "ignore_categories": [
+        "particle",
+        "subordinator",
+        "clause modifier",
+        "number",
+        "quantifier"
+    ],
+    "lexc_files": [
+        "lexc/git_flags.txt",
+        "lexc/git_verbs.txt",
+        "lexc/git_nouns.txt",
+        "lexc/git_modifiers.txt",
+        "lexc/git_misc.txt",
+        "lexc/git_inflection.txt"
+    ],
+    "ignore_lexc_files": [
+        "lexc/git_tam.txt",
+        "lexc/git_irregular.txt",
+        "lexc/git_functional.txt",
+        "lexc/git_clitics.txt"
+    ],
+    "rules_files": [
+        "git_rules.txt"
+    ],
+    "dialect_variation": false
+}

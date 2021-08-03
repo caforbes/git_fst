@@ -1,0 +1,16 @@
+Multichar_Symbols
++N
++P
+-T
+-3
+=CN
+-ATTR
+-VAL
+
+LEXICON Noun
++N: 	NInfl ;
+
+LEXICON NInfl
+-ATTR:^m	# ;
+-ATTR:^a	# ;
+# ;

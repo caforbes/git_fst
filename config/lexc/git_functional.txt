@@ -1,0 +1,88 @@
+Multichar_Symbols
++P
++PRO
+PN
+ASSOC
+PROX
+DIST
+PL_
++DEM
+AX
+
+LEXICON Root
+	Preposition ;
+	Conjunction ;
+	Pronoun ;
+	NProclitic ;
+	Quotative ;
+	Demonstrative ;
+	SeriesI ;
+	SeriesIprocl ;
+	Modal ;
+	Operator;
+
+LEXICON Preposition
+g_$o'o+P:g_$o'o	# ;
+g_$o'o+P:g_$o'o	SeriesII ;
+g_$oo+P:g_$oo	# ;
+g_$oo+P:g_$oo	SeriesII ;
+g_$a'a+P:g_$a'a	# ;
+g_$a'a+P:g_$a'a	SeriesII ;
+'$a+P:'$a 			# ;
+'$a+P:'$a 			AgreeingNClitic ;
+'$a+P-OBL:'$a^l$oo		AgreeingNClitic ;
+
+LEXICON Conjunction
+g_an+CNJ:g_an		NextNClitic ;
+'$oo+CNJ:'$oo			# ;
+
+LEXICON Pronoun
+1SG+PRO:'nii'y 	Word ;
+1PL+PRO:'nuu'm	Word ;
+2SG+PRO:'niin 	Word ;
+2PL+PRO:'nisi'm 	Word ;
+3+PRO:'nit 		Word ;
+3PL+PRO:'nidiit 	Word ;
+1SG+OBL:loo'y 	Word ;
+1PL+OBL:loo'm	Word ;
+2SG+OBL:loon 	Word ;
+2PL+OBL:loosi'm 	Word ;
+3+OBL:loot 		Word ;
+3PL+OBL:loodiit 	Word ;
+
+LEXICON NProclitic
+PN:t		# ;
+ASSOC:dip	# ;
+
+LEXICON Demonstrative
+PROX+DEM:tun		Word ;
+PL_PROX+DEM:dipun	Word ;
+DIST+DEM:tust		Word ;
+DIST+DEM:tus		Word ;
+PL_DIST+DEM:dipust	Word ;
+
+LEXICON DemonstrativeClitic
+=PROX+DEM:=un	Word ;
+=DIST+DEM:=ust	Word ;
+=DIST+DEM:=us	Word ;
+
+LEXICON Quotative
+1SG+QUOT:niy$a	QuotativeEnding ;
+2SG+QUOT:miy$a	QuotativeEnding ;
+3SG+QUOT:diy$a	QuotativeEnding ;
+1PL+QUOT:diph$iida		QuotativeEnding ;
+2PL+QUOT:masimh$iida	QuotativeEnding ;
+3PL+QUOT:dah$iida	QuotativeEnding ;
+3PL+QUOT:dah$iitda	QuotativeEnding ;
+3PL+QUOT:d$iitda	QuotativeEnding ;
+
+LEXICON QuotativeEnding
+	NextNClitic ;
+	SecPosClitic ;
+
+LEXICON Operator
+FOC+OP:dii		SeriesIencl ;
+FOC+OP:dii		PNClitic;
+REL+OP:hli		SeriesIencl ;
+AX+OP:an 		SeriesIencl3 ;
+DWID+OP:l$igi	PNClitic ;

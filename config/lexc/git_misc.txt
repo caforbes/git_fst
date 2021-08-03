@@ -1,0 +1,27 @@
+Multichar_Symbols
++QUA
++NUM
++PT
+-T
+-1PL
+-2PL
+-3PL
+-SX
+
+LEXICON Quantifier
++QUA:	QuantificationalInfl;
+
+LEXICON Number
++NUM:	QuantificationalInfl;
+
+LEXICON QuantificationalInfl
+    #;
+	Word;
+	SX;
+    AgreeingNClitic ;
+-1PL:^'m	Word ;
+-2PL:^si'm	Word ;
+-3PL:^diit	Word ;
+
+LEXICON Particle
++PT:	#;

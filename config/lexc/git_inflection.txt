@@ -1,0 +1,34 @@
+Multichar_Symbols
+-1SG
+-1PL
+-2SG
+-2PL
+-3
+-3PL
+=PN
+=CN
+-SX
+
+LEXICON SeriesII
+-1SG:^'y	Word ;
+-1PL:^'m	Word ;
+-2SG:^n		Word ;
+-2PL:^si'm	Word ;
+-3:^t		Word ;
+-3PL:^diit	Word ;
+	AgreeingNClitic ;
+
+LEXICON AgreeingNClitic
+-3=CN:^hl	# ;
+-3=PN:^s	# ;
+-3=PN:^s	DemonstrativeClitic ;
+
+LEXICON SX
+-SX:^it		Word ;
+-SX:^it		Resemb ;
+
+LEXICON daPlClitic
+-3PL:^da	# ;
+
+LEXICON Word
+		# ;

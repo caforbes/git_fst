@@ -1,0 +1,28 @@
+Multichar_Symbols
++VI
++SUB
+-2SG
+-2PL
+-3
+=CN
+=PN
+=PROSP
+
+LEXICON Root
+	Exceptions ;
+
+LEXICON Exceptions
+w$il+VI-2SG:win		Word ;
+w$il+VI-2PL:wisi'm	Word ;
+w$il+VI=CN:wihl		# ;
+w$il+VI-3=CN:wihl	# ;
+w$il+VI-3=PN:wis	# ;
+
+y$ee+VI-2SG:yin 	Word ;
+
+w$in+SUB=1:wina		# ;
+n$ee+SUB=PROSP:nem	# ;
+PROSP+MOD=2:dima	# ;
+
+2SG+OBL:lun 		Word ;
+3+PRO=CN:'nihl		# ;

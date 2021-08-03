@@ -1,0 +1,55 @@
+Multichar_Symbols
+=PN
+=CN
+=PROX
+=PR.EV
+=YNQ
+=QUDD
+=EPIS
+=REPORT
+=RESEM
+-3PL
+
+LEXICON Word
+	# ;
+	SecPosClitic ;
+@D.CAT.AUX@	PhraseClitic ;
+@D.CAT.AUX@	SentFinalClitic ;
+
+LEXICON PhraseClitic
+=PROX:^si 	NextNClitic ;
+=PROX:^sa 	NextNClitic ;
+=PR.EV:^gi 	NextNClitic ;
+		 	NextNClitic ;
+			# ;
+
+LEXICON Resemb
+=RESEM:^ii 	CNClitic ;
+
+LEXICON NextNClitic
+	CNClitic ;
+	PNClitic ;
+
+LEXICON CNClitic
+=CN:^hl	# ;
+		# ;
+
+LEXICON PNClitic
+=PN:^t	# ;
+		# ;
+
+LEXICON SecPosClitic
+@R.CAT.AUX@=EPIS:@R.CAT.AUX@^ima'a	SeriesIencl ;
+@R.CAT.AUX@=EPIS:@R.CAT.AUX@^imaa	SeriesIencl ;
+=EPIS:^ima'a	CNClitic ;
+=EPIS:^imaa	CNClitic ;
+=REPORT:^g_at	CNClitic ;
+				# ;
+
+LEXICON SentFinalClitic
+=YNQ:^aa	# ;
+=QUDD:^ist	# ;
+=QUDD:^is	# ;
+			# ;
+
+! still need to test these e.g. with vowel hiatus interaction

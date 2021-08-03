@@ -1,0 +1,218 @@
+define Vowel a | e | i | o | u ;
+define Consonant p | m | t | s | n | l | h | {hl} | k | x | w | y | ' | "_" ;
+define CLetter b | d | j | g ;
+define Obstruent p | t | k | k w | x | x w | s | t s | h l ;
+define Sonorant m | n | l | w | y | {'m} | {'n} | {'l} | {'w} | {'y}  ;
+define Sibilant s | {ts} | {ts'} ;
+define InitialCons b | d | g | h | j | k | l | m | n | p | s | t | w | x | y ;
+define VariationFlag "@P.VAR.HEHI@" | "@P.VAR.AE@" | "@P.VAR.GWIGU@" | "@P.VAR.XSKS@" | "@P.VAR.IMIX@" ;
+
+!-- geminate big T between final vowel/sonorant and following consonant, it ends up as onset+nucleus
+!-- extra morpheme break added so pre-V voicing works properly (but hacky)
+define BigTDoubling T -> t "^" T || Vowel [m | n | l | w | y]* "^"* _ "^" Consonant ,,
+                    T -> t "^" T || Vowel "^"* _ "^" Vowel ;
+
+!--delete big T between a consonant and following -diit suffix
+define TDiitDeletion    T -> 0 || Consonant "^"* _ {^i}* {^diit} ;
+
+!--turn big T into V nucleus between consonants, elsewhere into t
+define BigTForm T -> t || _ "^" Vowel ,,
+                T -> t || Vowel "^"* _ "^" ,,
+                T -> i || Consonant "^"* _ "^" Consonant ;
+
+!--delete TR vowel before -diit suffix and after unstressed sonorant
+define TrDeletion   {^i} -> 0 || _ {^diit}  ,,
+                    {^i} -> 0 || [Consonant | InitialCons]+ "^"* [i|a] [n|l] _ ;
+
+!--convert -xw suffix to -s after a non-glottal palatal or labiovelar (x, xw, k, kw)
+!--optionally after a uvular (k_, x_)
+define xwAfterVelar x w -> s || [ x | k ] w* "^" _ ,,
+                    x w (->) s || [ x | k ] {_} "^" _ ;
+
+!--epenthesize t between -xw/-in suffix and a vowel/sonorant
+!--can't remember why you need a VV/VR sequence here...
+define dintxwEpenthesis [..] -> t || Vowel [ Vowel | Sonorant ]* "^" _ x w ,,
+                        [..] -> d || Vowel [ Vowel | Sonorant ]* "^" _ i n ;
+                        ![..] -> d || Vowel [ Vowel | m | n | l | w | y ]* "^" _ i n ; ! if in fact we don't want t insertion here
+
+!--delete vowel in -asxw suffix after a vowel/sonorant
+define asxwForm a -> 0 || [ Vowel | Sonorant ] "^" _ s x w [ "^" | .#. ] ;
+
+!--when series II -si'm follows a sibilant affricate/fricative, insert a vowel
+define SimHiatus [..] -> i || Sibilant "^" _ {si'm} ;
+
+!--delete a connective following an identical phoneme
+define DoubleFricative  s -> 0 || Sibilant "^" _ ,,
+                        {hl} -> 0 || {hl} "^" _ ;
+
+!--vowel hiatus resolution vowel-initial suffixes/clitics
+define GlideEpenthesis  [..] -> y || Vowel "^" _ i ,,
+                        [..] -> h || Vowel "^" _ a [ "^" | .#. ] ;
+
+!--delete the vowel in the -it SX suffix if it follows a vowel/plain sonorant
+define VDeletion    i -> 0 || Vowel "^" _ t ,,
+                    i (->) 0 || Vowel [m | n | l | w | y] "^" _ t ;
+
+!--delete a schwa suffixed to an echo vowel
+define DeleteAfterEchoVowel i -> 0 || e %' e "^" _ [ InitialCons | "^" | .#. ] ,,
+                            i -> 0 || a %' a "^" _ [ InitialCons | "^" | .#. ] ,,
+                            i -> 0 || o %' o "^" _ [ InitialCons | "^" | .#. ] ;
+
+!--delete the echo vowel on a stem if a real vowel follows
+define DeleteEchoVowel  e -> 0 || e %' _ "^" Vowel ,,
+                        a -> 0 || a %' _ "^" Vowel ,,
+                        o -> 0 || o %' _ "^" Vowel ;
+
+!--insert a vowel if a sonorant suffix has been added after a consonant
+define VInsertion   [..] -> i || Consonant "^" _ Sonorant ;
+
+!--voice a non-glottalized stop (into voiced stop) if now followed by a vowel
+define PreVVoicing  p -> b || _ "^"+ Vowel ,,
+                    t -> d || _ "^"+ Vowel ,,
+                    {ts} -> j || _ "^"+ Vowel ,,
+                    k -> g || _ "^"+ Vowel ,,
+                    X (->) g || _ "_" "^"+ Vowel ,,       ! optional hardening in algag_a'y
+                    k -> g || _ [w | "_"] "^"+ Vowel ;
+
+!--delete doubled 'y in e.g. didi'y-'y
+define DoubleYDeletion  {'y} -> 0 || _ "^" {'y} ;
+
+!--after R= proclitic, delete glottal stop, otherwise insert vowel, and n replaces d
+define SIProclisis  %' -> 0 || .#. Sonorant "^" _ "$"* Vowel ,,
+                    d i -> 0 || .#. Sonorant "^" _ m ,,
+                    [..] -> i || .#. Sonorant "^" _ InitialCons ;
+
+
+!--voice a dorsal fricative (into glide) if now followed by a vowel
+define Gliding      x -> y || Vowel _ "^" Vowel ,,   ! parentheses around arrow??
+                    x w (->) w || Vowel _ "^" Vowel ,,
+                    X -> x ,,                     ! hopefully prevents algaXa'y -> algaha'y
+                    {x_} (->) h || Vowel _ "^" Vowel ;
+
+!--lower epenthesized vowel quality if added after a uvular or h
+define VLowering    i -> a || [ h | "_" | {_'} ] "^" _ ;
+
+!--round an epenthesized vowel if it is between labials, or after o + uvular
+!--don't round non-epenthesized vowels or long vowels
+define VRounding    i (->) u || [ w | {kw'} | Vowel m ] "^" _ '* m ,,
+                    a (->) o || "$" o [ {k_} | {k_'} | {x_} ] "^" _ "^"* Consonant ;       ! standard or optional?
+
+!--delete x fricative after stressed V-Sonorant before vowel (limx-it -> limit)
+define VocalicRX    x -> 0 || "$" Vowel+ Sonorant _ "^" Vowel ;
+
+!--hardening of unstressed ax_ when followed by V, e.g. algax_ / algag_a'y
+define AxHardening  {x_} -> {X_} || Vowel [ Consonant | CLetter ]+ a _ "^" Vowel ;  ! special X
+
+!--coalesce labiovelar offglide with following rounded vowel
+!--must follow voicing/gliding process (else deletes w in xw -> y)
+define OffglideDeletion w -> 0 || [ x | g | Vowel %' ] _ "^" u ,,
+                        w -> 0 || k _ ' "^" u ;
+
+!--stem variation rules that apply with active flags
+
+!--allow optional excrescent vowel for Sonorant-X (limx -> limix)
+define ExcrescentRX x (->) i "@P.VAR.IMIX@" x || Sonorant _ .#. ,,
+                    {x_} (->) a "@P.VAR.IMIX@" {x_} || Sonorant _ .#. ;
+
+!--optionally shorten/raise long vowel before an added sonorant coda
+define VShortening e e (->) e || _ "^" Sonorant .#. ,,
+                   o o (->) u || _ "^" Sonorant .#. ,,
+                   a a (->) a || _ "^" Sonorant .#. ;
+
+!--optionally convert short stressed a into e
+define HeHiVariation e (->) i "@P.VAR.HEHI@" || h "$" _ [ Consonant | CLetter ] ;
+
+!--optionally convert short stressed a into e
+!--no conversion before or after a hard consonant with underscore
+define AEVariation  a (->) e "@P.VAR.AE@" || [ InitialCons | InitialCons %' ] "$" _ [ "^" | .#. ] ,,
+                    a (->) e "@P.VAR.AE@" || [ InitialCons | InitialCons %' ] "$" _ InitialCons [ InitialCons | "^" | .#. ] ;
+
+!--optionally convert between gu/gwi, k'u/kw'i
+define GwiGuVariation   {gwi} (->) {gu} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter ] ,,
+                        {kw'i} (->) {k'u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter ] ,,
+                        {gw$i} (->) {g$u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter | .#. | "^" ] ,,
+                        {kw'$i} (->) {k'$u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter | .#. | "^" ] ;
+
+!--optionally convert between ks and xs sequence
+define XsFortition  x s (->) "@P.VAR.XSKS@" k s || [ .#. | m | n | l | Vowel ] VariationFlag* _ ,,
+                    x s (->) "@P.VAR.XSKS@" k s  || _ Vowel ,,             ! unstressed syllable
+                    x w s (->) "@P.VAR.XSKS@" k w s  || .#. _ ,,
+                    x (->) "@P.VAR.XSKS@" k || Vowel VariationFlag* _ "^" x w ;
+define KsLenition   k s (->) "@P.VAR.XSKS@" x s || [ .#. | m | n | l | i | e | Vowel Vowel ] VariationFlag* _ ,,
+                    k w s (->) "@P.VAR.XSKS@" x w s ;
+    ! need to add a flag here
+
+
+regex Lexicon ;
+define Stems ;
+
+! stem variation
+set flag-is-epsilon OFF
+
+regex Stems
+    .o. HeHiVariation 
+    .o. AEVariation
+    .o. GwiGuVariation
+    .o. XsFortition .o. KsLenition
+    .o. ExcrescentRX
+    ;
+twosided flag-diacritics
+define VariableStems ;
+regex VariableStems.i
+    .o. [..] -> "<HEHI>" || .#. _ ?* "@P.VAR.HEHI@"
+    .o. [..] -> "<AE>" || .#. _ ?* "@P.VAR.AE@"
+    .o. [..] -> "<GWIGU>" || .#. _ ?* "@P.VAR.GWIGU@"
+    .o. [..] -> "<XSKS>" || .#. _ ?* "@P.VAR.XSKS@"
+    .o. [..] -> "<IMIX>" || .#. _ ?* "@P.VAR.IMIX@"
+    ;
+define VariableStems ;
+read regex VariableStems.i ;
+define Stems ;
+! end stem variation
+
+set flag-is-epsilon ON
+regex Stems
+    .o. TrDeletion
+    .o. BigTDoubling
+    .o. TDiitDeletion
+    .o. BigTForm
+    .o. xwAfterVelar
+    .o. dintxwEpenthesis
+    .o. asxwForm
+    .o. VDeletion
+    .o. DeleteAfterEchoVowel
+    .o. DeleteEchoVowel
+    .o. DoubleYDeletion
+    .o. GlideEpenthesis
+    .o. SimHiatus
+    .o. DoubleFricative
+    .o. SIProclisis
+    .o. VInsertion
+    .o. VLowering
+    .o. VRounding
+    !.o. VShortening
+    .o. VocalicRX
+    .o. AxHardening
+    .o. PreVVoicing
+    .o. Gliding
+    .o. OffglideDeletion
+    ;
+define Words ;
+
+!--delete stress marking
+define DeleteStress  "$" -> 0 ;
+
+!--delete predictable word-initial glottal stop before vowel
+define InitialGlottal   %' -> 0 || .#. _ Vowel ;
+
+!--delete morpheme boundaries from surface form
+define Cleanup  "^" | "=" | "~" -> 0 ;
+
+regex Words
+    .o. DeleteStress
+    .o. InitialGlottal
+    .o. Cleanup
+;
+
+define CleanWords ;
+read regex CleanWords ;

@@ -1,0 +1,29 @@
+Multichar_Symbols
++PVB
++PNN
++ADV
++MDF
++PL
+
+LEXICON Modifier
++MDF:	#;
++MDF-:^	RootIntransitiveVerb;
++MDF-:^	RootTransitiveVerb;
++MDF-:^	RootNoun;
+
+LEXICON ClauseModifier
++MDF:	#;
++MDF:	SeriesIencl3;
+
+LEXICON Preverb
++PVB:	#;
++PVB-:^	RootIntransitiveVerb;
++PVB-:^	RootTransitiveVerb;
+
+LEXICON Prenoun
++PNN:	#;
++PNN-:^	RootNoun;
+
+LEXICON Adverb
++ADV:	#;
++ADV:	Word;
