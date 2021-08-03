@@ -14,11 +14,11 @@ This analyzer relies heavily on allomorphic rules to generate local allomorphic 
 
 ## Config files
 
-Four configuration files are included in this compilation:
+Four configuration files are included in this compilation and accessible via their file path or as constants:
 
-* `config/basic_east.json`
-* `config/basic_dialectal.json`
-* `config/full_east.json`
-* `config/full_dialectal.json`
+* `BASIC_E` = `config/basic_east.json`
+* `BASIC_EW` = `config/basic_dialectal.json`
+* `FULL_E` = `config/full_east.json`
+* `FULL_EW` = `config/full_dialectal.json`
 
 The "basic" configurations exclude functional items like pronouns or aspect markers from compilation, working instead only with open-class lexical items drawn from the dictionary. The "east" configurations exclude all dialect variation rules from compilation, using only the forms that are explicitly listed in the dictionary (which is based on the Git-an'maaxs dialect; Eastern).
