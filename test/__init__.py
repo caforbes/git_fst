@@ -1,4 +1,4 @@
-from git_fst import Parser, BASIC_E, BASIC_EW, FULL_E, FULL_EW
+from src import Parser, BASIC_E, BASIC_EW, FULL_E, FULL_EW
 import shutil
 import json
 import unittest

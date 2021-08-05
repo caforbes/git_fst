@@ -1,6 +1,6 @@
 import unittest
 
-from git_fst import helpers
+from src import helpers
 
 """
 Tests helper functions having to do with case changing, stress annotation,

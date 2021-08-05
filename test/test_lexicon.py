@@ -1,7 +1,7 @@
 import unittest
 
 from test import FIX_DIR
-from git_fst.lexicon import Lexicon, LexiconError
+from src.lexicon import Lexicon, LexiconError
 
 """
 This suite tests the creation of lexc-compatible dictionary object

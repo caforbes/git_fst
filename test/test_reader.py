@@ -1,7 +1,7 @@
 import unittest
 
 from test import FIX_DIR
-from git_fst.foma_reader import FomaError, FomaReader
+from src.foma_reader import FomaError, FomaReader
 
 """
 This suite tests the behavior of the interface class that loads foma

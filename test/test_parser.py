@@ -1,4 +1,4 @@
-from git_fst.parser import ParserError
+from src.parser import ParserError
 import unittest
 from test import TestFSTOutput, BASIC_E, BASIC_EW, FULL_E
 

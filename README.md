@@ -16,10 +16,10 @@ Load a parser by passing a path to a foma file or a configuration file. Inputtin
 
 ```python
 # the most complete FST is built + loaded by default
-fst = git_fst.Parser()
+fst = src.Parser()
 # or choose another configuration, or list your own foma file
-fst = git_fst.Parser('fst/basic_east.json')
-fst = git_fst.Parser('path/to/git.foma')
+fst = src.Parser('fst/basic_east.json')
+fst = src.Parser('path/to/git.foma')
 ```
 
 Use `analyze` and `generate` functions to translate upper-lower forms and vvsa. If the input foma file writes to a binary file, the flookup utility is used for faster queries.

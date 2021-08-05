@@ -5,7 +5,7 @@
 # import unittest
 
 # from test import FIX_DIR
-# from git_fst.foma import FST
+# from src.foma import FST
 
 # """
 # Tests for the foma.py bindings. Currently I can't get these to load.

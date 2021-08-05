@@ -2,7 +2,7 @@ import unittest
 import os, shutil
 
 from test import FIX_DIR
-from git_fst.builder import FomaBuilder, BuilderError
+from src.builder import FomaBuilder, BuilderError
 
 """
 This suite tests the construction of new lexc and foma files based
