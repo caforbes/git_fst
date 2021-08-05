@@ -1,13 +1,11 @@
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, BASIC_E
 
 """
 This suite checks the existence of expected morphotactic combinations
 that attach to the major categories (N, VI, VT) in the base parser.
 These tests use the actual FST (v1) as a dependency.
 """
-
-CONFIG = 'config/basic_east.json'
 
 class TestNounPaths(TestFSTOutput):
 
@@ -16,7 +14,7 @@ class TestNounPaths(TestFSTOutput):
         test_stems = {
             'Noun': ['gwil$a']
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def setUp(self):
         self.uppers = [pair[0] for pair in self.fst.pairs()]
@@ -98,7 +96,7 @@ class TestVerbIntransPaths(TestFSTOutput):
         test_stems = {
             'IntransitiveVerb': ['y$ee']
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
         cls.pairs = cls.fst.pairs()
 
     def setUp(self):
@@ -189,7 +187,7 @@ class TestVerbTransPaths(TestFSTOutput):
         test_stems = {
             'TransitiveVerb': ['j$ap']
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
         cls.pairs = cls.fst.pairs()
 
     def setUp(self):

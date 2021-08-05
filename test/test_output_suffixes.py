@@ -1,5 +1,5 @@
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, BASIC_E
 
 """
 This suite checks that Gitksan stems appear in the correct form
@@ -7,8 +7,6 @@ when inflectional suffixes are attached to them. Alternates based on
 final consonant and some other specific properties.
 These tests use the actual FST (v1) as a dependency.
 """
-
-CONFIG = 'config/basic_east.json'
 
 class TestPlainStops(TestFSTOutput):
 
@@ -26,7 +24,7 @@ class TestPlainStops(TestFSTOutput):
                 "ay$ook_",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_plainP(self):
         stem = 's$ip+N'
@@ -220,7 +218,7 @@ class TestGlottalStops(TestFSTOutput):
                 "ts'$ok_'",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_glottP(self):
         stem = "s$ip'+N"
@@ -412,7 +410,7 @@ class TestFricatives(TestFSTOutput):
                 "n$ox_",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_fricS(self):
         stem = "m$aas+N"
@@ -559,7 +557,7 @@ class TestPlainSonorants(TestFSTOutput):
                 # "y",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_plainM(self):
         stem = 'g$um+N'
@@ -663,7 +661,7 @@ class TestGlottalSonorants(TestFSTOutput):
                 # "ba'n",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_glottalM(self):
         stem = "hl$aa'm+N"
@@ -811,7 +809,7 @@ class TestVowels(TestFSTOutput):
             ],
             'IntransitiveVerb': ['y$ee']
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_shortA(self):
         stem = "w$a+N"
@@ -959,7 +957,7 @@ class TestClusters(TestFSTOutput):
                 "h$upx_",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_ST(self):
         stem = "x_b$iist+N"
@@ -1152,7 +1150,7 @@ class TestTrVowel(TestFSTOutput):
                 "'w$a",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_indepObstruent(self):
         stem = "g$up+VT"
@@ -1289,7 +1287,7 @@ class TestBigT(TestFSTOutput):
             ],
             'Noun': ['w$a']
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_native_postC(self):
         stem = "m$ahlT+VT"
@@ -1401,7 +1399,7 @@ class TestIrregulars(TestFSTOutput):
                 # "gitxs$animx_",
             ],
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_gipaykw_voicing(self):
         stem = "gip$aykw+VI"
@@ -1466,7 +1464,7 @@ class TestCausValAntip(TestFSTOutput):
                 "gwil$a",
             ],
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     def test_caus_sII(self):
         stem = "s$ip+VI-CAUS"

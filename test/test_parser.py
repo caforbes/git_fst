@@ -1,6 +1,6 @@
 from git_fst.parser import ParserError
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, BASIC_E, BASIC_EW, FULL_E
 
 """
 This suite builds a parser object end-to-end from input files 
@@ -9,9 +9,6 @@ Files are generated and cleaned up on close.
 These tests use the actual FST (v1) as a dependency.
 """
 
-CONFIG1 = 'config/basic_east.json'
-CONFIG2 = 'config/basic_dialectal.json'
-CONFIG3 = 'config/full_east.json'
 
 class TestParser(TestFSTOutput):
 
@@ -29,7 +26,7 @@ class TestParser(TestFSTOutput):
             'Preverb': ["'nii"], 
             'Modifier': ["sim"]
         }
-        super().setUpClass(CONFIG1, test_stems)
+        super().setUpClass(BASIC_E, test_stems)
 
     # analyze/generate forms
     def test_analyzeSuccess(self):
@@ -160,7 +157,7 @@ class TestParserVariant(TestFSTOutput):
             'IntransitiveVerb': ["w$an"],
             'Preverb': ["'nii"],
         }
-        super().setUpClass(CONFIG2, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     # lemmatize - one form
 
@@ -201,7 +198,7 @@ class TestParserFunctional(TestFSTOutput):
                 "w$an",
             ]
         }
-        super().setUpClass(CONFIG3, test_stems)
+        super().setUpClass(FULL_E, test_stems)
 
     # lemmatize - one form
 

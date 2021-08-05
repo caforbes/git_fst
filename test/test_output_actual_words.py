@@ -1,18 +1,16 @@
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, FULL_E
 
 """
 This suite checks that certain gitksan words are correctly imported
 from the given CSV dictionary, and are parsed accurately.
 """
 
-CONFIG = 'config/full_east.json'
-
 class TestLexiconImport(TestFSTOutput):
 
     @classmethod
     def setUpClass(cls):
-        super().setUpClass(CONFIG, None)
+        super().setUpClass(FULL_E, None)
     
     def test_anyWord(self):
         root = "y$al+VI"

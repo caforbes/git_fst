@@ -1,5 +1,5 @@
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, FULL_E
 
 
 """
@@ -10,8 +10,6 @@ These tests use the actual FST (v2) as a dependency.
 """
 
 
-CONFIG = 'config/full_east.json'
-
 class TestAuxiliaryPaths(TestFSTOutput):
 
     @classmethod
@@ -20,7 +18,7 @@ class TestAuxiliaryPaths(TestFSTOutput):
             'Auxiliary': ['y$ukw'],
         }
         cls.stem = 'y$ukw+AUX'
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(FULL_E, test_stems)
 
     def test_bare(self):
         path = self.stem
@@ -75,7 +73,7 @@ class TestAuxiliaryPaths(TestFSTOutput):
 #             'Modal': ['d$im']
 #         }
 #         cls.stem = 'd$im+MOD'
-#         super().setUpClass(CONFIG, test_stems)
+#         super().setUpClass(FULL_E, test_stems)
 
 
 # class TestSubordinatorPaths(TestFSTOutput):
@@ -86,7 +84,7 @@ class TestAuxiliaryPaths(TestFSTOutput):
 #             'Subordinator': ["$ii"],
 #         }
 #         cls.stem = "$ii+SUB"
-#         super().setUpClass(CONFIG, test_stems)
+#         super().setUpClass(FULL_E, test_stems)
 
 
 if __name__ == '__main__':

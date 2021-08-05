@@ -1,13 +1,11 @@
 import unittest
-from test import TestFSTOutput
+from test import TestFSTOutput, BASIC_EW
 
 """
 This suite checks the correct application of E-W dialectal rules on
 actual gitksan words.
 These tests use a version of the FST (v1 with dialect rules) as a dependency.
 """
-
-CONFIG = 'config/basic_dialectal.json'
 
 class TestGwiGu(TestFSTOutput):
 
@@ -21,7 +19,7 @@ class TestGwiGu(TestFSTOutput):
                 "gw$iila",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     def test_agwi_agu(self):
         self.assertNotEqual(len(self.fst.analyze("agwi")), 0)
@@ -62,7 +60,7 @@ class TestAE(TestFSTOutput):
                 "l$ax_",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     def test_wa_we(self):
         self.assertNotEqual(len(self.fst.analyze("wa")), 0)
@@ -103,7 +101,7 @@ class TestEI(TestFSTOutput):
                 "h$e",
             ],
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     def test_hetxw_hitxw(self):
         self.assertNotEqual(len(self.fst.analyze("hetxw")), 0)
@@ -142,7 +140,7 @@ class TestXsFortition(TestFSTOutput):
                 "g$itxs",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
 
     def test_xsan_ksan(self):
@@ -208,7 +206,7 @@ class TestKsLenition(TestFSTOutput):
                 "'$aat'iks",
             ]
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     def test_xsi_ksi(self):
         self.assertNotEqual(len(self.fst.analyze("ksi")), 0)
@@ -254,7 +252,7 @@ class TestExcrescentRX(TestFSTOutput):
                 "b$ahlx",
             ],
         }
-        super().setUpClass(CONFIG, test_stems)
+        super().setUpClass(BASIC_EW, test_stems)
 
     def test_limx_limix(self):
         self.assertNotEqual(len(self.fst.analyze("limx")), 0)

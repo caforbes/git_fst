@@ -1,4 +1,4 @@
-from git_fst import Parser
+from git_fst import Parser, BASIC_E, BASIC_EW, FULL_E, FULL_EW
 import shutil
 import json
 import unittest
@@ -15,7 +15,7 @@ def create_fst_config(json_path: str, dictionary: dict) -> dict:
     config['test'] = True
     if dictionary:
         config['dictionary'] = dictionary
-    config['name'] = 'test_inflection'
+    config['name'] = 'testy'
     return config
 
 
