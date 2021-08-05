@@ -18,6 +18,4 @@ setup(name=NAME,
       author_email='for.c.forbes@gmail.com',
       license='CC BY-NC-ND 4.0',
       packages=find_packages() + ['config'],
-    #   data_files=[('config', ['config/*.json','config/*.txt','config/*.csv'])],
-      include_package_data=True,
-      zip_safe=False)
+      include_package_data=True)
