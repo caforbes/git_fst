@@ -13,10 +13,10 @@ class ParserError(Exception):
 
 proj_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
-BASIC_E = os.path.join(proj_root, 'config/basic_east.json')
-BASIC_EW = os.path.join(proj_root, 'config/basic_dialectal.json')
-FULL_E = os.path.join(proj_root, 'config/full_east.json')
-FULL_EW = os.path.join(proj_root, 'config/full_dialectal.json')
+BASIC_E = os.path.join(proj_root, 'fst/basic_east.json')
+BASIC_EW = os.path.join(proj_root, 'fst/basic_dialectal.json')
+FULL_E = os.path.join(proj_root, 'fst/full_east.json')
+FULL_EW = os.path.join(proj_root, 'fst/full_dialectal.json')
 
 class Parser():
     """
@@ -25,7 +25,7 @@ class Parser():
     (includes east/west variation, functional items)
 
     load_input = path to a foma file or json configuration file
-                default: 'config/full_dialect
+                default: 'fst/full_dialect
     """
 
     def __init__(self, load_input: str or dict = FULL_EW) -> None:

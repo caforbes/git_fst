@@ -12,13 +12,13 @@ Version 1.0 (Aug 3, 2021). This analyzer is still imperfect and contains many op
 
 ## Basic use
 
-Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/config`. Foma files constructed in this way are saved to `/config/foma` and read automatically.
+Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/fst`. Foma files constructed in this way are saved to `/fst/foma` and read automatically.
 
 ```python
 # the most complete FST is built + loaded by default
 fst = git_fst.Parser()
 # or choose another configuration, or list your own foma file
-fst = git_fst.Parser('config/basic_east.json')
+fst = git_fst.Parser('fst/basic_east.json')
 fst = git_fst.Parser('path/to/git.foma')
 ```
 

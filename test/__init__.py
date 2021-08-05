@@ -28,13 +28,13 @@ def import_fst_files(config) -> list:
     # copy those files to fixtures directory
     new_files = []
     for file in files:
-        orig = os.path.join(os.path.dirname(__file__), '../config', file)
+        orig = os.path.join(os.path.dirname(__file__), '../fst', file)
         dest = os.path.join(os.path.dirname(__file__), 'fixtures', file)
         shutil.copy(orig, dest)
         new_files.append(dest)
     # copy lexc files to directory in fixtures
     orig_lexc = orig = os.path.join(
-        os.path.dirname(__file__), '../config/lexc')
+        os.path.dirname(__file__), '../fst/lexc')
     dest_lexc = orig = os.path.join(
         os.path.dirname(__file__), 'fixtures/lexc')
     shutil.copytree(orig_lexc, dest_lexc)

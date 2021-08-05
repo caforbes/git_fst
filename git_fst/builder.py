@@ -21,7 +21,7 @@ class FomaBuilder:
     def build(self) -> None:
         """ Builds lexc/foma files as specified with config settings from input dict.
             Writes both files to foma/ inside specified directory from config file.
-            If no dir specified, writes to ../config/foma
+            If no dir specified, writes to ../fst/foma
         """
         target_path = os.path.join(self.config['dir'], 'foma')
         if not os.path.exists(target_path):
@@ -138,5 +138,5 @@ class FomaBuilder:
                 dir = os.path.join(
                     os.path.dirname(__file__), '../test/fixtures')
             else:
-                dir = os.path.join(os.path.dirname(__file__), '../config')
+                dir = os.path.join(os.path.dirname(__file__), '../fst')
             self.config['dir'] = os.path.abspath(dir)
