@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 
 NAME = 'git_fst'
@@ -17,5 +17,7 @@ setup(name=NAME,
       author='Clarissa Forbes',
       author_email='for.c.forbes@gmail.com',
       license='CC BY-NC-ND 4.0',
-      packages=[NAME],
+      packages=find_packages(),
+      data_files=[('config', ['config/*.json','config/*.txt','config/*.csv'])],
+      include_package_data=True,
       zip_safe=False)
