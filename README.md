@@ -8,14 +8,20 @@ This resource is available under the Creative Commons Attribution No-Commercial 
 
 ## Version
 
-Version 1.0 (Aug 3, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items and cliticization, is still forthcoming.
+This is the first workable version (1.0, Aug 5, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items and cliticization, is still forthcoming.
+
+## Dependencies
+
+You must install `foma`.
+
+Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
 
 ## Basic use
 
 Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/fst`. Foma files constructed in this way are saved to `/fst/foma` and read automatically.
 
 ```python
-# the most complete FST is built + loaded by default
+# the most complete FST is built + loaded by default, saved to fst/foma/git_full_EW.foma
 fst = src.Parser()
 # or choose another configuration, or list your own foma file
 fst = src.Parser('fst/basic_east.json')
@@ -37,12 +43,6 @@ results = fst.lemmatize(word)
 for analysis in results:
 	print(analysis)
 ```
-
-## Dependencies
-
-You must install `foma`.
-
-Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
 
 ## more
 
