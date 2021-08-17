@@ -12,23 +12,24 @@ This is the first workable version (1.0, Aug 5, 2021). This analyzer is still im
 
 ## Dependencies
 
-You must install `foma`.
+You must locally install `foma`.
 
 Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
 
-## Basic use
+## Basic use of Parser objects
 
-Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/fst`. Foma files constructed in this way are saved to `/fst/foma` and read automatically.
+Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file is the expected usage, and it will cause the foma file to be constructed dynamically from the dictionary and lexc files included in this project. Available configuration files are located in `/fst`. Foma files constructed from configuration files are saved to `/fst/foma` in your installation.
 
 ```python
-# the most complete FST is built + loaded by default, saved to fst/foma/git_full_EW.foma
+# default usage builds/loads the most complete FST, saved to fst/foma/git_full_EW.foma
 fst = src.Parser()
-# or choose another configuration, or list your own foma file
+# or choose another configuration file
 fst = src.Parser('fst/basic_east.json')
+# or list your own foma file
 fst = src.Parser('path/to/git.foma')
 ```
 
-Use `analyze` and `generate` functions to translate upper-lower forms and vvsa. If the input foma file writes to a binary file, the flookup utility is used for faster queries.
+Use `analyze` to output upper forms (segmented morpheme glosses) and `generate` to output lower forms (surface words). If the input foma file writes to a binary file, the `flookup` utility is used for faster queries.
 
 ```python
 results = fst.analyze(word)
@@ -44,8 +45,8 @@ for analysis in results:
 	print(analysis)
 ```
 
-## more
+## etc
 
-Unit/object tests are in `test*.py` files; FST output tests are `test_output*.py`.
+Unit tests and object tests are in `test*.py` files. Tests of the FST output are in `test_output*.py` files.
 
 See `/docs` for further description.
