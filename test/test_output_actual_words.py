@@ -34,8 +34,8 @@ class TestLexiconImport(TestFSTOutput):
 
         # path should exist
         paths = [
-            '+VT-3',
-            '+VT-TR-3',
+            '+VT-3.II',
+            '+VT-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -43,8 +43,8 @@ class TestLexiconImport(TestFSTOutput):
         
         # path should not exist
         paths = [
-            '+VT-T-3',
-            '+VT-T-TR-3',
+            '+VT-T-3.II',
+            '+VT-T-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path='no '+path):
@@ -55,8 +55,8 @@ class TestLexiconImport(TestFSTOutput):
         self.assertNotEqual(len(self.fst.generate(root+'+VT')), 0)
 
         paths = [
-            '+VT-3',
-            '+VT-TR-3',
+            '+VT-3.II',
+            '+VT-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -64,8 +64,8 @@ class TestLexiconImport(TestFSTOutput):
 
         # path should not exist
         paths = [
-            '+VT-T-3',
-            '+VT-T-TR-3',
+            '+VT-T-3.II',
+            '+VT-T-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path='no '+path):

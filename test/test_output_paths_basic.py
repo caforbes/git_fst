@@ -15,9 +15,7 @@ class TestNounPaths(TestFSTOutput):
             'Noun': ['gwil$a']
         }
         super().setUpClass(BASIC_E, test_stems)
-
-    def setUp(self):
-        self.uppers = [pair[0] for pair in self.fst.pairs()]
+        cls.uppers = [pair[0] for pair in cls.fst.pairs()]
 
     def test_uniquePairs(self):
         pairs = self.fst.pairs()
@@ -39,14 +37,14 @@ class TestNounPaths(TestFSTOutput):
 
     def test_inclSeriesIIandCons(self):
         paths = [
-            'gwil$a+N-1SG',
-            'gwil$a+N-1PL',
-            'gwil$a+N-2SG',
-            'gwil$a+N-2PL',
-            'gwil$a+N-3',
-            'gwil$a+N-3PL',
-            'gwil$a+N-3=CN',
-            'gwil$a+N-3=PN',
+            'gwil$a+N-1SG.II',
+            'gwil$a+N-1PL.II',
+            'gwil$a+N-2SG.II',
+            'gwil$a+N-2PL.II',
+            'gwil$a+N-3.II',
+            'gwil$a+N-3PL.II',
+            'gwil$a+N[-3.II]=CN',
+            'gwil$a+N[-3.II]=PN',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -68,12 +66,12 @@ class TestNounPaths(TestFSTOutput):
         path = 'gwil$a+N-VAL'
         self.assertNotIn(path, self.uppers)
         path = 'gwil$a+N-VAL'
-        self.assertIn(path+'-3', self.uppers)
+        self.assertIn(path+'-3.II', self.uppers)
 
     def test_inclTposs(self):
-        path = 'gwil$a+N-T-3'
+        path = 'gwil$a+N-T-3.II'
         self.assertIn(path, self.uppers)
-        path = 'gwil$a+N-T-3=CN'
+        path = 'gwil$a+N-T[-3.II]=CN'
         self.assertIn(path, self.uppers)
         path = 'gwil$a+N-T'
         self.assertNotIn(path, self.uppers)
@@ -81,8 +79,8 @@ class TestNounPaths(TestFSTOutput):
     def test_exclTR(self):
         paths = [
             'gwil$a+N-TR',
-            'gwil$a+N-TR-3',
-            'gwil$a+VT-TR-3',
+            'gwil$a+N-TR-3.II',
+            'gwil$a+VT-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -98,15 +96,13 @@ class TestVerbIntransPaths(TestFSTOutput):
         }
         super().setUpClass(BASIC_E, test_stems)
         cls.pairs = cls.fst.pairs()
-
-    def setUp(self):
-        self.uppers = [pair[0] for pair in self.pairs]
+        cls.uppers = [pair[0] for pair in cls.pairs]
 
     def test_uniquePairs(self):
         self.assertTrue(len(self.pairs) == len(set(self.pairs)))
 
     def test_numUniquePaths(self):
-        expected = 9 # bare, sII (-da / -diit = same gloss)
+        expected = 10 # bare, sII, -da
         expected += 2 # attr, sx
         # expected += 8 # caus + sII
         # expected += 8 # caus + tr + sII
@@ -122,14 +118,15 @@ class TestVerbIntransPaths(TestFSTOutput):
 
     def test_inclSeriesIIandCons(self):
         paths = [
-            'y$ee+VI-1SG',
-            'y$ee+VI-1PL',
-            'y$ee+VI-2SG',
-            'y$ee+VI-2PL',
-            'y$ee+VI-3',
-            'y$ee+VI-3PL',
-            'y$ee+VI-3=CN',
-            'y$ee+VI-3=PN',
+            'y$ee+VI-1SG.II',
+            'y$ee+VI-1PL.II',
+            'y$ee+VI-2SG.II',
+            'y$ee+VI-2PL.II',
+            'y$ee+VI-3.II',
+            'y$ee+VI-3PL.II',
+            'y$ee+VI-3PL.INDP',
+            'y$ee+VI[-3.II]=CN',
+            'y$ee+VI[-3.II]=PN',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -139,10 +136,10 @@ class TestVerbIntransPaths(TestFSTOutput):
     def test_inclCaus(self):
         stem = 'y$ee+VI'
         paths = [
-            '-CAUS-1SG',
-            '-CAUS-3=CN',
-            '-CAUS-TR-1SG',
-            '-CAUS-TR-3=CN',
+            '-CAUS-1SG.II',
+            '-CAUS[-3.II]=CN',
+            '-CAUS-TR-1SG.II',
+            '-CAUS-TR[-3.II]=CN',
         ]
         for path in paths:
             path = stem + path
@@ -163,17 +160,17 @@ class TestVerbIntransPaths(TestFSTOutput):
         self.assertNotIn(path, self.uppers)
 
     def test_exclT(self):
-        path = 'y$ee+VI-T-3'
+        path = 'y$ee+VI-T-3.II'
         self.assertNotIn(path, self.uppers)
-        path = 'y$ee+VI-T-3=CN'
+        path = 'y$ee+VI-T[-3.II]=CN'
         self.assertNotIn(path, self.uppers)
 
     def test_exclTR(self):
         paths = [
             'y$ee+VI-TR',
-            'y$ee+VI-TR-3',
+            'y$ee+VI-TR-3.II',
             'y$ee+VT-TR',
-            'y$ee+VT-TR-3',
+            'y$ee+VT-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -189,9 +186,7 @@ class TestVerbTransPaths(TestFSTOutput):
         }
         super().setUpClass(BASIC_E, test_stems)
         cls.pairs = cls.fst.pairs()
-
-    def setUp(self):
-        self.uppers = [pair[0] for pair in self.pairs]
+        cls.uppers = [pair[0] for pair in cls.pairs]
 
     def test_uniquePairs(self):
         self.assertTrue(len(self.pairs) == len(set(self.pairs)))
@@ -214,14 +209,14 @@ class TestVerbTransPaths(TestFSTOutput):
 
     def test_inclSeriesIIandCons(self):
         paths = [
-            'j$ap+VT-1SG',
-            'j$ap+VT-1PL',
-            'j$ap+VT-2SG',
-            'j$ap+VT-2PL',
-            'j$ap+VT-3',
-            'j$ap+VT-3PL',
-            'j$ap+VT-3=CN',
-            'j$ap+VT-3=PN',
+            'j$ap+VT-1SG.II',
+            'j$ap+VT-1PL.II',
+            'j$ap+VT-2SG.II',
+            'j$ap+VT-2PL.II',
+            'j$ap+VT-3.II',
+            'j$ap+VT-3PL.II',
+            'j$ap+VT[-3.II]=CN',
+            'j$ap+VT[-3.II]=PN',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -229,14 +224,14 @@ class TestVerbTransPaths(TestFSTOutput):
 
     def test_inclTRSeriesIIandCons(self):
         paths = [
-            'j$ap+VT-TR-1SG',
-            'j$ap+VT-TR-1PL',
-            'j$ap+VT-TR-2SG',
-            'j$ap+VT-TR-2PL',
-            'j$ap+VT-TR-3',
-            'j$ap+VT-TR-3PL',
-            'j$ap+VT-TR-3=CN',
-            'j$ap+VT-TR-3=PN',
+            'j$ap+VT-TR-1SG.II',
+            'j$ap+VT-TR-1PL.II',
+            'j$ap+VT-TR-2SG.II',
+            'j$ap+VT-TR-2PL.II',
+            'j$ap+VT-TR-3.II',
+            'j$ap+VT-TR-3PL.II',
+            'j$ap+VT-TR[-3.II]=CN',
+            'j$ap+VT-TR[-3.II]=PN',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -248,8 +243,8 @@ class TestVerbTransPaths(TestFSTOutput):
 
     def test_inclBigTderiv(self):
         paths = [
-            'j$ap+VT-T-3',
-            'j$ap+VT-T-TR-3',
+            'j$ap+VT-T-3.II',
+            'j$ap+VT-T-TR-3.II',
         ]
         for path in paths:
             with self.subTest(path=path):
@@ -259,7 +254,7 @@ class TestVerbTransPaths(TestFSTOutput):
     def test_inclANTIPderiv(self):
         paths = [
             'j$ap+VT-ANTIP',
-            'j$ap+VT-ANTIP-3',
+            'j$ap+VT-ANTIP-3.II',
             'j$ap+VT-ANTIP-ATTR',
         ]
         for path in paths:

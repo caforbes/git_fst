@@ -19,9 +19,9 @@ LEXICON QuantificationalInfl
 	Word;
 	SX;
     AgreeingNClitic ;
--1PL:^'m	Word ;
--2PL:^si'm	Word ;
--3PL:^diit	Word ;
+-1PL.II:^'m	Word ;
+-2PL.II:^si'm	Word ;
+-3PL.II:^diit	Word ;
 
 LEXICON Particle
 +PT:	#;

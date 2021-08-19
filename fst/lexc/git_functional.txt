@@ -37,12 +37,12 @@ g_an+CNJ:g_an		NextNClitic ;
 '$oo+CNJ:'$oo			# ;
 
 LEXICON Pronoun
-1SG+PRO:'nii'y 	Word ;
-1PL+PRO:'nuu'm	Word ;
-2SG+PRO:'niin 	Word ;
-2PL+PRO:'nisi'm 	Word ;
-3+PRO:'nit 		Word ;
-3PL+PRO:'nidiit 	Word ;
+1SG.III+PRO:'nii'y 	Word ;
+1PL.III+PRO:'nuu'm	Word ;
+2SG.III+PRO:'niin 	Word ;
+2PL.III+PRO:'nisi'm 	Word ;
+3.III+PRO:'nit 		Word ;
+3PL.III+PRO:'nidiit 	Word ;
 1SG+OBL:loo'y 	Word ;
 1PL+OBL:loo'm	Word ;
 2SG+OBL:loon 	Word ;

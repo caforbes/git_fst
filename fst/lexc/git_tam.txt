@@ -7,13 +7,14 @@ Multichar_Symbols
 3=
 1PL
 2PL
+.I
 
 LEXICON Command
 +IMP:	#;
 
 LEXICON SeriesIprocl
-@P.SI.1@1=:@P.SI.1@n^	SeriesIable ;
-@P.SI.2@2=:@P.SI.2@m^	SeriesIable ;
+@P.SI.1@1.I=:@P.SI.1@n^	SeriesIable ;
+@P.SI.2@2.I=:@P.SI.2@m^	SeriesIable ;
 
 LEXICON SeriesIable
 	RootModal ;
@@ -21,11 +22,11 @@ LEXICON SeriesIable
 	RootAuxiliary ;
 
 LEXICON SeriesI
-1:na 		# ;
-1PL:dip 	# ;
-2:mi 		# ;
-2:ma 		# ;
-2PL:sim 	# ;
+1.I:na 		# ;
+1PL.I:dip 	# ;
+2.I:mi 		# ;
+2.I:ma 		# ;
+2PL.I:sim 	# ;
 
 LEXICON Auxiliary
 @P.CAT.AUX@+AUX:@P.CAT.AUX@	SeriesIencl ;
@@ -40,11 +41,11 @@ LEXICON Modal
 +MOD:	SeriesIencl;
 
 LEXICON SeriesIencl
-@D.SI@=1:@D.SI@^n			# ;	! used = instead of ^ to condition special epenthesis
-@D.SI@=2:@D.SI@^m			# ;
-!=2=2PL:^m^sim	# ;
+@D.SI@=1.I:@D.SI@^n			# ;	! used = instead of ^ to condition special epenthesis
+@D.SI@=2.I:@D.SI@^m			# ;
+!=2.I=2PL.I:^m^sim	# ;
 	SeriesIencl3 ;
 
 LEXICON SeriesIencl3
-@D.SI@=3:@D.SI@^t			# ;
+@D.SI@=3.I:@D.SI@^t			# ;
 				# ;

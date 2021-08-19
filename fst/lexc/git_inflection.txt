@@ -8,27 +8,29 @@ Multichar_Symbols
 =PN
 =CN
 -SX
+.II
+.INDP
 
 LEXICON SeriesII
--1SG:^'y	Word ;
--1PL:^'m	Word ;
--2SG:^n		Word ;
--2PL:^si'm	Word ;
--3:^t		Word ;
--3PL:^diit	Word ;
+-1SG.II:^'y	Word ;
+-1PL.II:^'m	Word ;
+-2SG.II:^n		Word ;
+-2PL.II:^si'm	Word ;
+-3.II:^t		Word ;
+-3PL.II:^diit	Word ;
 	AgreeingNClitic ;
 
 LEXICON AgreeingNClitic
--3=CN:^hl	# ;
--3=PN:^s	# ;
--3=PN:^s	DemonstrativeClitic ;
+[-3.II]=CN:^hl	# ;
+[-3.II]=PN:^s	# ;
+[-3.II]=PN:^s	DemonstrativeClitic ;
 
 LEXICON SX
 -SX:^it		Word ;
 -SX:^it		Resemb ;
 
 LEXICON daPlClitic
--3PL:^da	# ;
+-3PL.INDP:^da	# ;
 
 LEXICON Word
 		# ;

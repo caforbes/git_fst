@@ -26,11 +26,11 @@ class TestAuxiliaryPaths(TestFSTOutput):
 
     def test_goodSeriesI(self):
         pairs = {
-            '1=' + self.stem: ['niyukw'],
-            '2=' + self.stem: ['miyukw'],
-            self.stem + '=1': ['yugwin'],
-            self.stem + '=2': ['yugwim', 'yugum'],
-            self.stem + '=3': ['yukwt'],
+            '1.I=' + self.stem: ['niyukw'],
+            '2.I=' + self.stem: ['miyukw'],
+            self.stem + '=1.I': ['yugwin'],
+            self.stem + '=2.I': ['yugwim', 'yugum'],
+            self.stem + '=3.I': ['yukwt'],
         }
         for gloss, expected_list in pairs.items():
             with self.subTest(path=gloss):
@@ -40,10 +40,10 @@ class TestAuxiliaryPaths(TestFSTOutput):
 
     def test_badSeriesI(self):
         paths = [
-            '3=' + self.stem,           # initial 3
-            '1=' + self.stem + '=1',    # doubled both sides
-            '1=' + self.stem + '=2',    # mismatching
-            self.stem + '=2=1',         # stacked
+            '3.I=' + self.stem,             # initial 3.I
+            '1.I=' + self.stem + '=1.I',    # doubled both sides
+            '1.I=' + self.stem + '=2.I',    # mismatching
+            self.stem + '=2.I=1.I',         # stacked
         ]
         for path in paths:
             with self.subTest(path=path):
