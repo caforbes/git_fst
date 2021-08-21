@@ -8,10 +8,8 @@ Multichar_Symbols
 =EPIS
 =REPORT
 =RESEM
--3PL
 
 LEXICON Word
-	# ;
 	SecPosClitic ;
 @D.CAT.AUX@	PhraseClitic ;
 @D.CAT.AUX@	SentFinalClitic ;
@@ -21,7 +19,6 @@ LEXICON PhraseClitic
 =PROX:^sa 	NextNClitic ;
 =PR.EV:^gi 	NextNClitic ;
 		 	NextNClitic ;
-			# ;
 
 LEXICON Resemb
 =RESEM:^ii 	CNClitic ;
@@ -44,12 +41,10 @@ LEXICON SecPosClitic
 =EPIS:^ima'a	CNClitic ;
 =EPIS:^imaa	CNClitic ;
 =REPORT:^g_at	CNClitic ;
-				# ;
 
 LEXICON SentFinalClitic
 =YNQ:^aa	# ;
 =QUDD:^ist	# ;
 =QUDD:^is	# ;
-			# ;
 
 ! still need to test these e.g. with vowel hiatus interaction
