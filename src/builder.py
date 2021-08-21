@@ -60,7 +60,7 @@ class FomaBuilder:
         '''
 
         multichar_symbs = ''
-        self._morphotactics = ''
+        morphotactics = []
 
         # read/process files in lexc directory
         for file in self.config['lexc_files']:
@@ -69,8 +69,12 @@ class FomaBuilder:
 
             # split multichar symbols from morphotactic description
             chunks = content.split('\n\n', 1)
-            multichar_symbs += chunks[0].split('\n', 1)[1] + '\n'
-            self._morphotactics += chunks[1] + '\n'
+            header = chunks[0]
+            if '\n' in header:
+                multichar_symbs += header.split('\n', 1)[1] + '\n'
+            morphotactics.append(chunks[1])
+            
+        self._morphotactics = '\n\n'.join(morphotactics)
 
         # clean up the multicharacter symbols
         self._build_multichars(multichar_symbs)
