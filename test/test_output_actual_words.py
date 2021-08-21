@@ -12,21 +12,33 @@ class TestLexiconImport(TestFSTOutput):
     def setUpClass(cls):
         super().setUpClass(FULL_E, None)
     
-    def test_anyWord(self):
-        root = "y$al+VI"
-        result = self.fst.generate(root)
-        self.assertNotEqual(len(result), 0)
+    def test_singleWord(self):
+        upper, lower = ("gwil$a+N", "gwila")
+        generated = self.fst.generate(upper)
+        self.assertEqual(len(generated), 1)
+        analyzed = self.fst.analyze(lower)
+        self.assertEqual(len(analyzed), 1)
     
+    def test_polysemousWord(self):
+        upper, lower = ("h$ix+VI", "hix")
+        generated = self.fst.generate(upper)
+        self.assertEqual(len(generated), 1)
+        analyzed = self.fst.analyze(lower)
+        self.assertEqual(len(analyzed), 2) # VI and N
     
     def test_multiWordConcat(self):
-        root = "'amg$iikw+N"
-        result = self.fst.generate(root)
-        self.assertNotEqual(len(result), 0)
+        upper, lower = ("'amg$iikw+N", "amgiikw")
+        generated = self.fst.generate(upper)
+        self.assertEqual(len(generated), 1)
+        analyzed = self.fst.analyze(lower)
+        self.assertEqual(len(analyzed), 1)
     
     def test_multiWordApostr(self):
-        root = "lax_'am$aaxws+N"
-        result = self.fst.generate(root)
-        self.assertNotEqual(len(result), 0)
+        upper, lower = ("'wii'am$e+VI", "'wii'ame")
+        generated = self.fst.generate(upper)
+        self.assertEqual(len(generated), 1)
+        analyzed = self.fst.analyze(lower)
+        self.assertEqual(len(analyzed), 1)
     
     def test_bats_bigT(self):
         root = "b$atsT"
