@@ -8,6 +8,12 @@ DIST
 PL_
 +DEM
 AX
+1SG.III
+1PL.III
+2SG.III
+2PL.III
+3.III
+3PL.III
 
 LEXICON Root
 	Preposition ;

@@ -1,9 +1,7 @@
 Multichar_Symbols
 +N
-+P
++VOC
 -T
--3
-=CN
 -ATTR
 -VAL
 

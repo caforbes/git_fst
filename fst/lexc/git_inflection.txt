@@ -1,15 +1,15 @@
 Multichar_Symbols
--1SG
--1PL
--2SG
--2PL
--3
--3PL
+-1SG.II
+-1PL.II
+-2SG.II
+-2PL.II
+-3.II
+-3PL.II
+-3PL.INDP
 =PN
 =CN
 -SX
-.II
-.INDP
+
 
 LEXICON SeriesII
 -1SG.II:^'y	Word ;
@@ -31,6 +31,3 @@ LEXICON SX
 
 LEXICON daPlClitic
 -3PL.INDP:^da	# ;
-
-LEXICON Word
-		# ;

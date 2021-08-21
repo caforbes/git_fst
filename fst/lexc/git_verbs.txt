@@ -2,19 +2,15 @@ Multichar_Symbols
 +VI
 +VT
 -ATTR
--ANTIP
--CAUS
--PASS
 -TR
 
 LEXICON IntransitiveVerb
-+VI:	VIDerivation ;
++VI:	VIDeriv ;
 
-LEXICON VIDerivation
-!-CAUS:^in 	VTInflection ;
-	VIInflection ;
+LEXICON VIDeriv
+	VIInfl ;
 
-LEXICON VIInflection
+LEXICON VIInfl
 -ATTR:^m	# ;
 	Word ;
 	SeriesII ;
@@ -22,16 +18,14 @@ LEXICON VIInflection
 	SX ;
 
 LEXICON TransitiveVerb
-+VT:		VTDerivation ;
++VT:		VTDeriv ;
 
-LEXICON VTDerivation
-!-ANTIP:^asxw 	VIInflection ;
-!-PASS:^xw 		VIInflection ;
-	VTInflection ;
+LEXICON VTDeriv
+	VTInfl ;
 	# ;		! for e.g. complement clause verbs
-@D.VAL.BIGT@-T:@D.VAL.BIGT@^T 			VTInflection ;
+@D.VAL.BIGT@-T:@D.VAL.BIGT@^T 			VTInfl ;
 
-LEXICON VTInflection
+LEXICON VTInfl
 		SeriesII ;
 -TR:^i	SeriesII ;
 		

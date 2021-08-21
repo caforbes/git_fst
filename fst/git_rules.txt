@@ -111,8 +111,8 @@ define OffglideDeletion w -> 0 || [ x | g | Vowel %' ] _ "^" u ,,
 !--stem variation rules that apply with active flags
 
 !--allow optional excrescent vowel for Sonorant-X (limx -> limix)
-define ExcrescentRX x (->) i "@P.VAR.IMIX@" x || Vowel Sonorant _ .#. ,,
-                    {x_} (->) a "@P.VAR.IMIX@" {x_} || Vowel Sonorant _ .#. ;
+define ExcrescentRX x (->) i x || Vowel Sonorant _ .#. ,,
+                    {x_} (->) {ax_} || Vowel Sonorant _ .#. ;
 
 !--optionally shorten/raise long vowel before an added sonorant coda
 define VShortening e e (->) e || _ "^" Sonorant .#. ,,
@@ -120,27 +120,27 @@ define VShortening e e (->) e || _ "^" Sonorant .#. ,,
                    a a (->) a || _ "^" Sonorant .#. ;
 
 !--optionally convert short stressed a into e
-define HeHiVariation e (->) i "@P.VAR.HEHI@" || h "$" _ [ Consonant | CLetter ] ;
+define HeHiVariation e (->) i || h "$" _ [ Consonant | CLetter ] ;
 
 !--optionally convert short stressed a into e
 !--no conversion before or after a hard consonant with underscore
-define AEVariation  a (->) e "@P.VAR.AE@" || [ InitialCons | InitialCons %' ] "$" _ [ "^" | .#. ] ,,
-                    a (->) e "@P.VAR.AE@" || [ InitialCons | InitialCons %' ] "$" _ InitialCons [ InitialCons | "^" | .#. ] ;
+define AEVariation  a (->) e || [ InitialCons | InitialCons %' ] "$" _ [ "^" | .#. ] ,,
+                    a (->) e || [ InitialCons | InitialCons %' ] "$" _ InitialCons [ InitialCons | "^" | .#. ] ;
 
 !--optionally convert between gu/gwi, k'u/kw'i
-define GwiGuVariation   {gwi} (->) {gu} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter ] ,,
-                        {kw'i} (->) {k'u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter ] ,,
-                        {gw$i} (->) {g$u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter | .#. | "^" ] ,,
-                        {kw'$i} (->) {k'$u} "@P.VAR.GWIGU@" || _ [ Consonant | CLetter | .#. | "^" ] ;
+define GwiGuVariation   {gwi} (->) {gu} || _ [ Consonant | CLetter ] ,,
+                        {kw'i} (->) {k'u} || _ [ Consonant | CLetter ] ,,
+                        {gw$i} (->) {g$u} || _ [ Consonant | CLetter | .#. | "^" ] ,,
+                        {kw'$i} (->) {k'$u} || _ [ Consonant | CLetter | .#. | "^" ] ;
 
 !--optionally convert between ks and xs sequence
-define XsFortition  x s (->) "@P.VAR.XSKS@" k s || [ .#. | m | n | l | Vowel ] VariationFlag* _ ,,
-                    x s (->) "@P.VAR.XSKS@" k s  || _ Vowel ,,             ! unstressed syllable
-                    x w s (->) "@P.VAR.XSKS@" k w s  || .#. _ ,,
-                    x (->) "@P.VAR.XSKS@" k || Vowel VariationFlag* _ "^" x w ;
-define KsLenition   k s (->) "@P.VAR.XSKS@" x s || [ .#. | i | e | Vowel Vowel ] VariationFlag* _ ,,
-                    k s (->) "@P.VAR.XSKS@" x s || Vowel [ m | n | l ] VariationFlag* _ ,,
-                    k w s (->) "@P.VAR.XSKS@" x w s ;
+define XsFortition  x s (->) k s || [ .#. | m | n | l | Vowel ] VariationFlag* _ ,,
+                    x s (->) k s  || _ Vowel ,,             ! unstressed syllable
+                    x w s (->) k w s  || .#. _ ,,
+                    x (->) k || Vowel VariationFlag* _ "^" x w ;
+define KsLenition   k s (->) x s || [ .#. | i | e | Vowel Vowel ] VariationFlag* _ ,,
+                    k s (->) x s || Vowel [ m | n | l ] VariationFlag* _ ,,
+                    k w s (->) x w s ;
     ! need to add a flag here
 
 
@@ -200,7 +200,7 @@ regex Stems
     .o. Gliding
     .o. OffglideDeletion
     ;
-define Words ;
+define MessyWords ;
 
 !--delete stress marking
 define DeleteStress  "$" -> 0 ;
@@ -211,7 +211,7 @@ define InitialGlottal   %' -> 0 || .#. _ Vowel ;
 !--delete morpheme boundaries from surface form
 define Cleanup  "^" | "=" | "~" -> 0 ;
 
-regex Words
+regex MessyWords
     .o. DeleteStress
     .o. InitialGlottal
     .o. Cleanup

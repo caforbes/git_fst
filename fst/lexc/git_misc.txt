@@ -15,13 +15,12 @@ LEXICON Number
 +NUM:	QuantificationalInfl;
 
 LEXICON QuantificationalInfl
-    #;
-	Word;
-	SX;
+	Word ;
+	SX ;
     AgreeingNClitic ;
 -1PL.II:^'m	Word ;
 -2PL.II:^si'm	Word ;
 -3PL.II:^diit	Word ;
 
 LEXICON Particle
-+PT:	#;
++PT:	# ;
