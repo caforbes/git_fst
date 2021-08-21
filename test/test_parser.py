@@ -1,4 +1,4 @@
-from src.parser import ParserError
+from src.parser import Parser, ParserError
 import unittest
 from test import TestFSTOutput, BASIC_E, BASIC_EW, FULL_E
 
@@ -216,6 +216,33 @@ class TestParserFunctional(TestFSTOutput):
         result = self.fst.lemmatize('mi')
         expected = None
         self.assertEqual(result, expected)
+    
+
+class TestStoryGlosser(unittest.TestCase):
+
+    def test_justLemma(self):
+        fst_ver, expected = ('w$an+VI', '___')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_Inflected(self):
+        fst_ver, expected = ('w$an+VI-3.II', '___-3.II')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_functionalInDict(self):
+        fst_ver, expected = ('nee+AUX', 'NEG')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_functionalInDictComplex(self):
+        fst_ver, expected = ('nee+AUX=EPIS=CN', 'NEG=EPIS=CN')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_looOblique(self):
+        fst_ver, expected = ('2PL+OBL', 'OBL-2PL.II')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_pronounIII(self):
+        fst_ver, expected = ('3.III+PRO', '3.III')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
 
 
 # python -m unittest test

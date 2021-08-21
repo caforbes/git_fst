@@ -1,6 +1,7 @@
 import re
 import json
 import os
+from types import new_class
 
 from . import helpers
 from .builder import FomaBuilder
@@ -27,6 +28,10 @@ class Parser():
     load_input = path to a foma file or json configuration file
                 default: 'fst/full_dialect
     """
+
+    _stem_pat = r"[\w'\$]+\+[A-Z]+"
+    # combo of letters, apostr, stress marker
+    # +ABRV tag for part of speech
 
     def __init__(self, load_input: str or dict = FULL_EW) -> None:
         self.reload(load_input)
@@ -83,11 +88,7 @@ class Parser():
         if not parses: return None
 
         # for each possible parse, find all stem+category strings
-        pat = r"(?:<[A-Z]+>)?[\w'\$]+\+[A-Z]+"
-            # non-capturing group for <dialect alternation> (not sure if fst needs this)
-            # combo of letters, apostr, stress marker
-            # +ABRV tag for part of speech
-        stem_options = [re.findall(pat, p) for p in parses]
+        stem_options = [re.findall(self._stem_pat, p) for p in parses]
         unique_options = helpers.unique(stem_options)
         
         # convert each stem string to a tuple of (surface forms, CAT)
@@ -142,7 +143,7 @@ class Parser():
                 raise ParserError('Timeout: {} unique random items could not be found.'.format(limit))
         
         return list(result)
-
+    
     def _build(self, config: dict) -> tuple:
         ''' Constructs a new foma file from configuration dictionary.
             Returns a tuple of the new foma filepath and binary filepath.
@@ -163,3 +164,22 @@ class Parser():
         if forms and abbrev:
             surface_forms = "/".join(sorted(helpers.unique(forms)))
             return (surface_forms, abbrev)
+
+    @classmethod
+    def story_gloss(cls, fst_gloss: str) -> str:
+        new_gloss = fst_gloss
+        replacements = {
+            "nee+AUX": 'NEG',
+            "'$a+P": 'PREP',
+            "g_$o'o+P": 'LOC',
+            "g_$oo+P": 'LOC',
+            "g_$a'a+P": 'LOC',
+            "g_an+CNJ": 'PCNJ',
+            "'$oo+CNJ": 'or',
+            "+PRO": '',
+        }
+        for fst_ver, ilg_ver in replacements.items():
+            new_gloss = new_gloss.replace(fst_ver, ilg_ver)
+        new_gloss = re.sub(r"(\w+)\+OBL", r"OBL-\1.II", new_gloss)
+        new_gloss = re.sub(cls._stem_pat, '___', new_gloss)
+        return new_gloss
