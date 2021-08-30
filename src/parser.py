@@ -164,22 +164,55 @@ class Parser():
         if forms and abbrev:
             surface_forms = "/".join(sorted(helpers.unique(forms)))
             return (surface_forms, abbrev)
+        elif abbrev == 'DEM':
+            if 'PROX' in analysis_str:
+                surface_forms = 'tun'
+            else:
+                surface_forms = 'tust'
+            return (surface_forms, abbrev)
 
     @classmethod
     def story_gloss(cls, fst_gloss: str) -> str:
         new_gloss = fst_gloss
+
+        # dictionary of replacements from glossing guide
         replacements = {
-            "nee+AUX": 'NEG',
+            "n$ee+AUX": 'NEG',
+            "y$ukw+AUX": 'PROG',
+            "d$im+MOD": 'PROSP',
+            "j$i+MOD": 'IRR',
+            "j$i+SUB": 'IRR',
+            "'$ii+SUB": 'CCNJ',
+            "w$ila+SUB": 'MANR',
+            "hl$aa+SUB": 'INCEP',
+            "hl$is+SUB": 'PERF',
+            "k_'$ap+MDF": 'VER',
+            "'$ap+MDF": 'VER',
+            "g_$an+MDF": 'REAS',
+            "g_$ay+MDF": 'CONTR',
+            "'$alp'a+ADV": 'RESTR',
+            "hind$a+ADV": 'WH',
+            "nd$a+ADV": 'WH',
             "'$a+P": 'PREP',
             "g_$o'o+P": 'LOC',
             "g_$oo+P": 'LOC',
             "g_$a'a+P": 'LOC',
             "g_an+CNJ": 'PCNJ',
+            "'$ii+CNJ": 'CCNJ',
             "'$oo+CNJ": 'or',
             "+PRO": '',
+            "+OP": '',
         }
         for fst_ver, ilg_ver in replacements.items():
             new_gloss = new_gloss.replace(fst_ver, ilg_ver)
+
+        # specific replacements for things not broken down in fst
         new_gloss = re.sub(r"(\w+)\+OBL", r"OBL-\1.II", new_gloss)
+        new_gloss = re.sub(r"(\w+)\+DEM", r"DEM.\1", new_gloss)
+        if '+QUOT' in new_gloss:
+            new_gloss = re.sub(r"(\d)SG\+QUOT", r"\1=QUOT", new_gloss)
+            new_gloss = re.sub(r"3PL\+QUOT", r"3=QUOT.3PL", new_gloss)
+            new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1=QUOT.PL", new_gloss)
+
         new_gloss = re.sub(cls._stem_pat, '___', new_gloss)
         return new_gloss

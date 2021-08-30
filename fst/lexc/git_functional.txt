@@ -21,7 +21,6 @@ LEXICON Root
 	Pronoun ;
 	NProclitic ;
 	Quotative ;
-	Demonstrative ;
 	SeriesI ;
 	SeriesIprocl ;
 	Modal ;
@@ -58,29 +57,26 @@ LEXICON Pronoun
 
 LEXICON NProclitic
 PN:t		# ;
+PN:t		DemonstrativeClitic ;
 ASSOC:dip	# ;
-
-LEXICON Demonstrative
-PROX+DEM:tun		Word ;
-PL_PROX+DEM:dipun	Word ;
-DIST+DEM:tust		Word ;
-DIST+DEM:tus		Word ;
-PL_DIST+DEM:dipust	Word ;
+ASSOC:dip	DemonstrativeClitic ;
 
 LEXICON DemonstrativeClitic
 =PROX+DEM:=un	Word ;
 =DIST+DEM:=ust	Word ;
-=DIST+DEM:=us	Word ;
 
 LEXICON Quotative
 1SG+QUOT:niy$a	QuotativeEnding ;
 2SG+QUOT:miy$a	QuotativeEnding ;
 3SG+QUOT:diy$a	QuotativeEnding ;
-1PL+QUOT:diph$iida		QuotativeEnding ;
-2PL+QUOT:masimh$iida	QuotativeEnding ;
-3PL+QUOT:dah$iida	QuotativeEnding ;
-3PL+QUOT:dah$iitda	QuotativeEnding ;
-3PL+QUOT:d$iitda	QuotativeEnding ;
+1PL+QUOT:diph$ii		QuotativePlEnding ;
+2PL+QUOT:masimh$ii	QuotativePlEnding ;
+3PL+QUOT:dah$iit	QuotativePlEnding ;
+3PL+QUOT:d$iit		QuotativePlEnding ;
+
+LEXICON QuotativePlEnding
+				# ;
+-3PL.INDP:^da 	QuotativeEnding ;
 
 LEXICON QuotativeEnding
 	NextNClitic ;
@@ -89,6 +85,6 @@ LEXICON QuotativeEnding
 LEXICON Operator
 FOC+OP:dii		SeriesIencl ;
 FOC+OP:dii		PNClitic;
-REL+OP:hli		SeriesIencl ;
+PART+OP:hli		SeriesIencl ;
 AX+OP:an 		SeriesIencl3 ;
 DWID+OP:l$igi	PNClitic ;

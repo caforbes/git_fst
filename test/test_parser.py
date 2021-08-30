@@ -217,6 +217,16 @@ class TestParserFunctional(TestFSTOutput):
         expected = None
         self.assertEqual(result, expected)
     
+    def test_lemmatizeDemonstrative(self):
+        result = self.fst.lemmatize('dipun')
+        expected = [[("tun", "DEM")]]
+        self.assertEqual(result, expected)
+    
+    def test_lemmatizeDemonstrativeComplex(self):
+        result = self.fst.lemmatize('asun')
+        expected = [[("a", "P"), ("tun", "DEM")]]
+        self.assertEqual(result, expected)
+    
 
 class TestStoryGlosser(unittest.TestCase):
 
@@ -229,11 +239,11 @@ class TestStoryGlosser(unittest.TestCase):
         self.assertEqual(Parser.story_gloss(fst_ver), expected)
 
     def test_functionalInDict(self):
-        fst_ver, expected = ('nee+AUX', 'NEG')
+        fst_ver, expected = ('n$ee+AUX', 'NEG')
         self.assertEqual(Parser.story_gloss(fst_ver), expected)
 
     def test_functionalInDictComplex(self):
-        fst_ver, expected = ('nee+AUX=EPIS=CN', 'NEG=EPIS=CN')
+        fst_ver, expected = ('n$ee+AUX=EPIS=CN', 'NEG=EPIS=CN')
         self.assertEqual(Parser.story_gloss(fst_ver), expected)
 
     def test_looOblique(self):
@@ -242,6 +252,22 @@ class TestStoryGlosser(unittest.TestCase):
 
     def test_pronounIII(self):
         fst_ver, expected = ('3.III+PRO', '3.III')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_demonstrative(self):
+        fst_ver, expected = ('PN=PROX+DEM', 'PN=DEM.PROX')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_demonstrativePl(self):
+        fst_ver, expected = ('ASSOC=PROX+DEM', 'ASSOC=DEM.PROX')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_quotative(self):
+        fst_ver, expected = ('1SG+QUOT', '1=QUOT')
+        self.assertEqual(Parser.story_gloss(fst_ver), expected)
+
+    def test_quotativeThirdPl(self):
+        fst_ver, expected = ('3PL+QUOT-3PL.INDP', '3=QUOT.3PL-3PL.INDP')
         self.assertEqual(Parser.story_gloss(fst_ver), expected)
 
 
