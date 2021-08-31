@@ -3,7 +3,7 @@ import json
 import os
 from types import new_class
 
-from . import helpers
+from . import helpers, ilg_helpers
 from .builder import FomaBuilder
 from .foma_reader import FomaReader
 
@@ -64,6 +64,17 @@ class Parser():
         if query not in self.analyzer_dict:
             self.analyzer_dict[query] = self._reader.lookup(query)
         return self.analyzer_dict[query]
+    
+    def analyze_as_ilg(self, query: str) -> list:
+        """
+        Input a surface wordform; returns list of possible analyses converted
+        to their nearest equivalent as seen in the interlinear gloss format used by the Gitksan lab.
+        Stems are given as ___ rather than as a one-word definition.
+        """
+        fst_output = self.analyze(query)
+        converted = [ilg_helpers.fst_to_story_gloss(res, self._stem_pat) 
+                    for res in fst_output]
+        return helpers.unique(converted)
 
     def generate(self, query: str) -> list:
         '''
@@ -100,7 +111,7 @@ class Parser():
 
         if results:
             return sorted(results)
-
+    
     def pairs(self) -> list:
         '''
         Reads the foma output of the pairs command and stores as a list of
@@ -170,49 +181,3 @@ class Parser():
             else:
                 surface_forms = 'tust'
             return (surface_forms, abbrev)
-
-    @classmethod
-    def story_gloss(cls, fst_gloss: str) -> str:
-        new_gloss = fst_gloss
-        # dictionary of replacements from glossing guide
-        replacements = {
-            "n$ee+AUX": 'NEG',
-            "y$ukw+AUX": 'PROG',
-            "d$im+MOD": 'PROSP',
-            "j$i+MOD": 'IRR',
-            "j$i+SUB": 'IRR',
-            "w$il+SUB": 'COMP',
-            "w$in+SUB": 'COMP',
-            "'$ii+SUB": 'CCNJ',
-            "w$ila+SUB": 'MANR',
-            "hl$aa+SUB": 'INCEP',
-            "hl$is+SUB": 'PERF',
-            "k_'$ap+MDF": 'VER',
-            "'$ap+MDF": 'VER',
-            "g_$an+MDF": 'REAS',
-            "g_$ay+MDF": 'CONTR',
-            "'$alp'a+ADV": 'RESTR',
-            "hind$a+ADV": 'WH',
-            "nd$a+ADV": 'WH',
-            "'$a+P": 'PREP',
-            "g_$o'o+P": 'LOC',
-            "g_$oo+P": 'LOC',
-            "g_$a'a+P": 'LOC',
-            "g_an+CNJ": 'PCNJ',
-            "'$ii+CNJ": 'CCNJ',
-            "'$oo+CNJ": 'or',
-            "+PRO": '',
-            "+OP": '',
-        }
-        for fst_ver, ilg_ver in replacements.items():
-            new_gloss = new_gloss.replace(fst_ver, ilg_ver)
-        # specific replacements for things not broken down in fst
-        new_gloss = re.sub(r"(\w+)\+OBL", r"OBL-\1.II", new_gloss)
-        new_gloss = re.sub(r"(\w+)\+DEM", r"DEM.\1", new_gloss)
-        if '+QUOT' in new_gloss:
-            new_gloss = re.sub(r"(\d)SG\+QUOT", r"\1=QUOT", new_gloss)
-            new_gloss = re.sub(r"3PL\+QUOT", r"3=QUOT.3PL", new_gloss)
-            new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1=QUOT.PL", new_gloss)
-        # replace stems with 'word+CAT' form with '___'
-        new_gloss = re.sub(cls._stem_pat, '___', new_gloss)
-        return new_gloss
