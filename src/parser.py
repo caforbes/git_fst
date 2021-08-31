@@ -94,7 +94,7 @@ class Parser():
         # convert each stem string to a tuple of (surface forms, CAT)
         results = []
         for option in unique_options:
-            option = [self._lemma_str_to_tuple(stem) for stem in option]
+            option = [self._analysis_to_lemma_tuple(stem) for stem in option]
             if option and option not in results:
                 results.append(option)
 
@@ -152,7 +152,7 @@ class Parser():
         builder.build()
         return (builder.foma_filepath(), builder.fomabin_filepath())
 
-    def _lemma_str_to_tuple(self, analysis_str: str) -> tuple:
+    def _analysis_to_lemma_tuple(self, analysis_str: str) -> tuple:
         """ When input a string that can be generated through the parser,
             returns a 2-tuple of the generated form (variants separated by slashes)
             and the category abbreviation for that form.
@@ -174,7 +174,6 @@ class Parser():
     @classmethod
     def story_gloss(cls, fst_gloss: str) -> str:
         new_gloss = fst_gloss
-
         # dictionary of replacements from glossing guide
         replacements = {
             "n$ee+AUX": 'NEG',
@@ -182,6 +181,8 @@ class Parser():
             "d$im+MOD": 'PROSP',
             "j$i+MOD": 'IRR',
             "j$i+SUB": 'IRR',
+            "w$il+SUB": 'COMP',
+            "w$in+SUB": 'COMP',
             "'$ii+SUB": 'CCNJ',
             "w$ila+SUB": 'MANR',
             "hl$aa+SUB": 'INCEP',
@@ -205,7 +206,6 @@ class Parser():
         }
         for fst_ver, ilg_ver in replacements.items():
             new_gloss = new_gloss.replace(fst_ver, ilg_ver)
-
         # specific replacements for things not broken down in fst
         new_gloss = re.sub(r"(\w+)\+OBL", r"OBL-\1.II", new_gloss)
         new_gloss = re.sub(r"(\w+)\+DEM", r"DEM.\1", new_gloss)
@@ -213,6 +213,6 @@ class Parser():
             new_gloss = re.sub(r"(\d)SG\+QUOT", r"\1=QUOT", new_gloss)
             new_gloss = re.sub(r"3PL\+QUOT", r"3=QUOT.3PL", new_gloss)
             new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1=QUOT.PL", new_gloss)
-
+        # replace stems with 'word+CAT' form with '___'
         new_gloss = re.sub(cls._stem_pat, '___', new_gloss)
         return new_gloss
