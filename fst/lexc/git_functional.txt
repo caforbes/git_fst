@@ -23,7 +23,6 @@ LEXICON Root
 	Quotative ;
 	SeriesI ;
 	SeriesIprocl ;
-	Modal ;
 	Operator;
 
 LEXICON Preposition

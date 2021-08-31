@@ -82,6 +82,12 @@ class TestLexiconImport(TestFSTOutput):
         for path in paths:
             with self.subTest(path='no '+path):
                 self.assertEqual(len(self.fst.generate(root+path)), 0)
+    
+    def test_noFreeModal(self):
+        result = self.fst.generate('+MOD')
+        self.assertEqual(result, [])
+        result = self.fst.generate('+MOD=3.I')
+        self.assertEqual(result, [])
 
 
 if __name__ == '__main__':
