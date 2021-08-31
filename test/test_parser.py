@@ -1,4 +1,6 @@
+from git_fst.src import ilg_helpers
 from src.parser import Parser, ParserError
+from src.ilg_helpers import STEM_PAT
 import unittest
 from test import TestFSTOutput, BASIC_E, BASIC_EW, FULL_E
 

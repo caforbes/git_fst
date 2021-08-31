@@ -3,7 +3,7 @@ import json
 import os
 from types import new_class
 
-from . import helpers, ilg_helpers
+from . import helpers, ilg_helpers, STEM_PAT
 from .builder import FomaBuilder
 from .foma_reader import FomaReader
 
@@ -28,10 +28,6 @@ class Parser():
     load_input = path to a foma file or json configuration file
                 default: 'fst/full_dialect
     """
-
-    _stem_pat = r"[\w'\$]+\+[A-Z]+"
-    # combo of letters, apostr, stress marker
-    # +ABRV tag for part of speech
 
     def __init__(self, load_input: str or dict = FULL_EW) -> None:
         self.reload(load_input)
@@ -65,14 +61,14 @@ class Parser():
             self.analyzer_dict[query] = self._reader.lookup(query)
         return self.analyzer_dict[query]
     
-    def analyze_as_ilg(self, query: str) -> list:
+    def analyze_to_ilg(self, query: str) -> list:
         """
         Input a surface wordform; returns list of possible analyses converted
         to their nearest equivalent as seen in the interlinear gloss format used by the Gitksan lab.
         Stems are given as ___ rather than as a one-word definition.
         """
         fst_output = self.analyze(query)
-        converted = [ilg_helpers.fst_to_story_gloss(res, self._stem_pat) 
+        converted = [ilg_helpers.fst_to_story_gloss(res, STEM_PAT) 
                     for res in fst_output]
         return helpers.unique(converted)
 
@@ -99,7 +95,7 @@ class Parser():
         if not parses: return None
 
         # for each possible parse, find all stem+category strings
-        stem_options = [re.findall(self._stem_pat, p) for p in parses]
+        stem_options = [re.findall(STEM_PAT, p) for p in parses]
         unique_options = helpers.unique(stem_options)
         
         # convert each stem string to a tuple of (surface forms, CAT)
@@ -164,10 +160,12 @@ class Parser():
         return (builder.foma_filepath(), builder.fomabin_filepath())
 
     def _analysis_to_lemma_tuple(self, analysis_str: str) -> tuple:
-        """ When input a string that can be generated through the parser,
-            returns a 2-tuple of the generated form (variants separated by slashes)
-            and the category abbreviation for that form.
-            e.g. 'cat+N' -> ('cat/Cat', 'N')
+        """
+        Takes a string corresponding to a single stem generated from 
+        the FST parser ('upper' form). Outputs a 2-tuple consisting of:
+            - the generated form (with variants separated by slashes)
+            - the category abbreviation for that form
+        e.g. 'cat+N' -> ('cat/Cat', 'N')
         """
         forms = self.generate(analysis_str)
         pat = r"\+([A-Z]+)"  # finds partofspeech abbreviation

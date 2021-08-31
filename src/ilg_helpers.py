@@ -1,13 +1,13 @@
 import re
+from . import STEM_PAT
 
 
-def fst_to_story_gloss(fst_gloss: str, stem_pattern: str) -> str:
+def fst_to_story_gloss(fst_gloss: str) -> str:
     """ 
     Input a gloss from the FST to convert it approximately to how it would look
     in the Gitksan interlinear gloss format used in stories. Instead of a definition
     for main stems, an empty '___' is used.
         - fst_gloss: string output from the parser
-        - stem_pattern: regex corresponding to the shape of a stem in the fst output
     """
     new_gloss = fst_gloss
     # morpheme/tag replacements: fst style as key, story form as value
@@ -50,14 +50,11 @@ def fst_to_story_gloss(fst_gloss: str, stem_pattern: str) -> str:
         new_gloss = re.sub(r"3PL\+QUOT", r"3=QUOT.3PL", new_gloss)
         new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1=QUOT.PL", new_gloss)
     # replace various stems with '___'
-    new_gloss = re.sub(stem_pattern, '___', new_gloss)
+    new_gloss = re.sub(STEM_PAT, '___', new_gloss)
     return new_gloss
 
 def filter_matching_glosses(analyses: list, story_gloss: str) -> list:
     pass
 
 def is_gloss_match(fst_gloss: str, story_gloss: str) -> bool:
-    pass
-
-def match_score():
     pass

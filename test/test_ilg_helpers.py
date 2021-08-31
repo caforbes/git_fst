@@ -10,12 +10,8 @@ stories).
 """
 
 class TestFSTtoStoryGloss(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.stem_pat = Parser._stem_pat
-    
     def convert(self, fst_ver):
-        return ilg_helpers.fst_to_story_gloss(fst_ver, self.stem_pat)
+        return ilg_helpers.fst_to_story_gloss(fst_ver)
 
     def test_justLemma(self):
         fst_ver, expected = ('w$an+VI', '___')
