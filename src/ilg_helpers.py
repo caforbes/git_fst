@@ -54,7 +54,45 @@ def fst_to_story_gloss(fst_gloss: str) -> str:
     return new_gloss
 
 def filter_matching_glosses(analyses: list, story_gloss: str) -> list:
-    pass
+    """
+    Given a list of FST analyses and an interlinear/story gloss to 
+    validate against, this function returns a subset of the FST analyses
+    which possibly match the validator as a list. If one analysis is 
+    an exact match, that item will be the only element in the returned
+    list. Any analyses which are not feasible matches are filtered out.
+    The remaining analyses are sorted by match goodness.
+    """
+    options = {}
+    for analysis in analyses:
+        approximation = fst_to_story_gloss(analysis)
+        score = match_score(approximation, story_gloss)
 
-def is_gloss_match(fst_gloss: str, story_gloss: str) -> bool:
-    pass
+        if score == 1:
+            return [analysis]
+        elif score:
+            options[analysis] = score
+
+    return list(options.keys())
+    # return sorted(options.keys(), reverse=True, key=lambda wd: options[wd])
+
+def match_score(converted_gloss: str, story_gloss: str) -> int:
+    """
+    Given a FST output analysis converted to its closest interlinear
+    equivalent, and an actual interlinear gloss string, this function
+    provides a numeric score from 0 to 1 indicating how likely the two
+    gloss strings are to be a match. 0 = no match, 1 = exact match.
+    Floats between 0 and 1 can be used to sort match goodness.
+    """
+    if converted_gloss == story_gloss:
+        return 1
+    else:
+        # remove brackets around -T/-TR in story string
+        story_gloss = re.sub(r'\[(-TR?)', r'\1', story_gloss)
+        story_gloss = re.sub(r'(-TR?)\]', r'\1', story_gloss)
+        # reject analysis with no match after simple wildcard
+        pattern = re.sub('___', '.+', re.escape(converted_gloss))
+        if not re.match(pattern, story_gloss):
+            return 0
+
+    # more score components to follow
+    return 0.5

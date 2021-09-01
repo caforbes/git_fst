@@ -52,3 +52,52 @@ class TestFSTtoStoryGloss(unittest.TestCase):
     def test_quotativeThirdPl(self):
         fst_ver, expected = ('3PL+QUOT-3PL.INDP', '3=QUOT.3PL-3PL.INDP')
         self.assertEqual(self.convert(fst_ver), expected)
+
+class TestAnalysisMatching(unittest.TestCase):
+    
+    def test_scoreSimpleMatch(self):
+        inputs = ('NEG', 'NEG')
+        self.assertEqual(ilg_helpers.match_score(*inputs), 1)
+    
+    def test_scoreBadMatch(self):
+        inputs = ('X', 'NEG')
+        self.assertEqual(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreBadPrefix(self):
+        inputs = ('1=___', 'test')
+        self.assertEqual(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreBadSuffix(self):
+        inputs = ('___-3', 'test')
+        self.assertEqual(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreMaybePrefix(self):
+        inputs = ('1=___', '1=test')
+        self.assertLess(ilg_helpers.match_score(*inputs), 1)
+        self.assertGreater(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreMaybeSuffix(self):
+        inputs = ('___-3', 'test-3')
+        self.assertLess(ilg_helpers.match_score(*inputs), 1)
+        self.assertGreater(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreMaybeElaborateStem(self):
+        inputs = ('___-3', 'CAUS-test-VAL-3')
+        self.assertLess(ilg_helpers.match_score(*inputs), 1)
+        self.assertGreater(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreGoodHiddenTr(self):
+        inputs = ('___-TR-3PL.II', 'test[-TR]-3PL.II')
+        self.assertLess(ilg_helpers.match_score(*inputs), 1)
+        self.assertGreater(ilg_helpers.match_score(*inputs), 0)
+
+    def test_scoreHiddenTrButBad(self):
+        inputs = ('___-TR-2PL.II', 'test[-TR]-3PL.II')
+        self.assertEqual(ilg_helpers.match_score(*inputs), 0)
+    
+    def test_scoreMaybeExtraMorphemes(self):
+        # e.g. da'ak_hlxw with annotated "able[-3]((=CN))"
+        inputs = ('___', 'test[-3]((=CN))')
+        self.assertLess(ilg_helpers.match_score(*inputs), 1)
+        self.assertGreater(ilg_helpers.match_score(*inputs), 0)
+    
