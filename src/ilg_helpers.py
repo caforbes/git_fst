@@ -68,11 +68,11 @@ def filter_matching_glosses(analyses: list, story_gloss: str) -> list:
         score = match_score(approximation, story_gloss)
 
         if score == 1:
-            return [analysis]
+            return [(analysis, score)]
         elif score:
             options[analysis] = score
 
-    return list(options.keys())
+    return list(options.items())
     # return sorted(options.keys(), reverse=True, key=lambda wd: options[wd])
 
 def match_score(converted_gloss: str, story_gloss: str) -> int:
