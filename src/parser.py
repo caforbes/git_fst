@@ -108,6 +108,15 @@ class Parser():
         if results:
             return sorted(results)
     
+    def analyze_and_validate(self, word: str, story_gloss: str) -> dict:
+        result = {}
+        output = self.analyze(word)
+        if output:
+            result['fst_output'] = output
+            result['ilg_matches'] = ilg_helpers.filter_matching_glosses(
+                output, story_gloss)
+        return result
+    
     def pairs(self) -> list:
         '''
         Reads the foma output of the pairs command and stores as a list of
