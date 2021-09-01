@@ -22,9 +22,9 @@ class TestGwiGu(TestFSTOutput):
         super().setUpClass(BASIC_EW, test_stems)
 
     def test_agwi_agu(self):
-        self.assertNotEqual(len(self.fst.analyze("agwi")), 0)
+        self.assertEqual(len(self.fst.analyze("agwi")), 1)
+        self.assertEqual(len(self.fst.analyze("agu")), 1)
         self.assertNotEqual(len(self.fst.analyze("agwihl")), 0)
-        self.assertNotEqual(len(self.fst.analyze("agu")), 0)
         self.assertNotEqual(len(self.fst.analyze("aguhl")), 0)
 
     def test_aagwi_no_change(self):
