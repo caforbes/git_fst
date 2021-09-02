@@ -37,6 +37,7 @@ def fst_to_story_gloss(fst_gloss: str) -> str:
         "g_an+CNJ": 'PCNJ',
         "'$ii+CNJ": 'CCNJ',
         "'$oo+CNJ": 'or',
+        "=YNQ": '=Q',
         "+PRO": '',
         "+OP": '',
     }
@@ -46,9 +47,9 @@ def fst_to_story_gloss(fst_gloss: str) -> str:
     new_gloss = re.sub(r"(\w+)\+OBL", r"OBL-\1.II", new_gloss)
     new_gloss = re.sub(r"(\w+)\+DEM", r"DEM.\1", new_gloss)
     if '+QUOT' in new_gloss:
-        new_gloss = re.sub(r"(\d)SG\+QUOT", r"\1=QUOT", new_gloss)
-        new_gloss = re.sub(r"3PL\+QUOT", r"3=QUOT.3PL", new_gloss)
-        new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1=QUOT.PL", new_gloss)
+        new_gloss = re.sub(r"(\d)SG\+QUOT", r"\1.I=QUOT", new_gloss)
+        new_gloss = re.sub(r"3PL\+QUOT", r"3.I=QUOT.3PL", new_gloss)
+        new_gloss = re.sub(r"(\d)PL\+QUOT", r"\1.I=QUOT.PL", new_gloss)
     # replace various stems with '___'
     new_gloss = re.sub(STEM_PAT, '___', new_gloss)
     return new_gloss
