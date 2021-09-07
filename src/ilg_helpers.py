@@ -73,8 +73,9 @@ def filter_matching_glosses(analyses: list, story_gloss: str) -> list:
         elif score:
             options[analysis] = score
 
-    return list(options.items())
-    # return sorted(options.keys(), reverse=True, key=lambda wd: options[wd])
+    # return list(options.items())
+    return sorted(options.items(), reverse=True, 
+                    key=lambda pair: options[pair[0]])
 
 def match_score(converted_gloss: str, story_gloss: str) -> int:
     """
@@ -85,15 +86,34 @@ def match_score(converted_gloss: str, story_gloss: str) -> int:
     Floats between 0 and 1 can be used to sort match goodness.
     """
     if converted_gloss == story_gloss:
+        # find exact match
         return 1
     else:
+        # reject analysis with no match when using simple wildcard
+
         # remove brackets around -T/-TR in story string
         story_gloss = re.sub(r'\[(-TR?)', r'\1', story_gloss)
         story_gloss = re.sub(r'(-TR?)\]', r'\1', story_gloss)
-        # reject analysis with no match after simple wildcard
+
         pattern = re.sub('___', '.+', re.escape(converted_gloss))
         if not re.match(pattern, story_gloss):
             return 0
 
-    # more score components to follow
-    return 0.5
+    # otherwise, generate score based on number of fst morphemes
+    # that match morphemes in ilg gloss (reject if not found)
+    score = 0.5
+
+    fst_morphs = re.split(r'[\-=~\[\]\(\)<>]+', converted_gloss)
+    ilg_morphs = re.split(r'[\-=~\[\]\(\)<>]+', story_gloss)
+
+    # refactor if we need to consider duplicate morphemes (TODO)
+    for morph in fst_morphs:
+        if morph in ilg_morphs:
+            score *= 1.15
+        elif morph == '___':
+            score *= 0.95
+        else:
+            score = 0
+            break
+    
+    return round(score, 3)

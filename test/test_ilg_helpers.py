@@ -46,11 +46,11 @@ class TestFSTtoStoryGloss(unittest.TestCase):
         self.assertEqual(self.convert(fst_ver), expected)
 
     def test_quotative(self):
-        fst_ver, expected = ('1SG+QUOT', '1=QUOT')
+        fst_ver, expected = ('1SG+QUOT', '1.I=QUOT')
         self.assertEqual(self.convert(fst_ver), expected)
 
     def test_quotativeThirdPl(self):
-        fst_ver, expected = ('3PL+QUOT-3PL.INDP', '3=QUOT.3PL-3PL.INDP')
+        fst_ver, expected = ('3PL+QUOT-3PL.INDP', '3.I=QUOT.3PL-3PL.INDP')
         self.assertEqual(self.convert(fst_ver), expected)
 
 class TestAnalysisMatching(unittest.TestCase):
@@ -100,4 +100,41 @@ class TestAnalysisMatching(unittest.TestCase):
         inputs = ('___', 'test[-3]((=CN))')
         self.assertLess(ilg_helpers.match_score(*inputs), 1)
         self.assertGreater(ilg_helpers.match_score(*inputs), 0)
-    
+
+    def test_filterAnalysesExact(self):
+        input_analyses = ['n$ee+AUX']
+        input_gloss = 'NEG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [('n$ee+AUX', 1)])
+
+    def test_filterAnalysesReduceRoot(self):
+        input_analyses = ['n$ee+AUX', 'n$ee+VI']
+        input_gloss = 'NEG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [('n$ee+AUX', 1)])
+
+    def test_filterAnalysesReduceMorpheme(self):
+        input_analyses = ['n$ee+AUX', 'n$ee+AUX-3.II']
+        input_gloss = 'NEG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [('n$ee+AUX', 1)])
+
+    def test_filterAnalysesEmpty(self):
+        input_analyses = []
+        input_gloss = 'NEG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [])
+
+    def test_filterAnalysesNoMatch(self):
+        input_analyses = ['n$ee+AUX-3.II']
+        input_gloss = 'NEG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [])
+
+    def test_filterAnalysesSubsetGloss(self):
+        input_analyses = ["'$am+VI[-3.II]=CN", "'$am+VI=CN"]
+        input_gloss = 'good[-3.II]=CN'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(
+            res, [("'$am+VI[-3.II]=CN", 0.628), ("'$am+VI=CN", 0.546)])
+    # add tests to do with option sort?
