@@ -127,6 +127,12 @@ class TestAnalysisMatching(unittest.TestCase):
 
     def test_filterAnalysesNoMatch(self):
         input_analyses = ['n$ee+AUX-3.II']
+        input_gloss = 'PROG'
+        res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
+        self.assertEqual(res, [])
+
+    def test_filterAnalysesSupersetGloss(self):
+        input_analyses = ['n$ee+AUX-3.II']
         input_gloss = 'NEG'
         res = ilg_helpers.filter_matching_glosses(input_analyses, input_gloss)
         self.assertEqual(res, [])
