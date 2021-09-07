@@ -3,8 +3,8 @@ import unittest
 from src import helpers
 
 """
-Tests helper functions having to do with case changing, stress annotation,
-and (not yet) git orthography.
+Tests helper functions having to do with case changing,
+stress annotation, and (TODO) git orthography.
 """
 
 class TestCamelcase (unittest.TestCase):

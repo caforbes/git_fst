@@ -199,7 +199,8 @@ class TestVerbTransPaths(TestFSTOutput):
         # expected += 11    # ANTIP: bare + 8 sII + ATTR + SX
         self.assertEqual(len(set(self.uppers)), expected)
 
-    def test_inclVT(self): # grammatically we don't want this, practically we do
+    def test_inclVT(self):
+        # grammatically we don't want this, practically we do
         path = 'j$ap+VT'
         self.assertIn(path, self.uppers)
 

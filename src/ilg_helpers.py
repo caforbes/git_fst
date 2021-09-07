@@ -4,9 +4,9 @@ from . import STEM_PAT
 
 def fst_to_story_gloss(fst_gloss: str) -> str:
     """ 
-    Input a gloss from the FST to convert it approximately to how it would look
-    in the Gitksan interlinear gloss format used in stories. Instead of a definition
-    for main stems, an empty '___' is used.
+    Input a gloss from the FST to convert it approximately to how it
+    would look in the Gitksan interlinear gloss format used in stories.
+    Instead of a definition for main stems, an empty '___' is used.
         - fst_gloss: string output from the parser
     """
     new_gloss = fst_gloss

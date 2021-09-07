@@ -46,7 +46,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainT(self):
         stem = 'g_$oot+N'
@@ -68,7 +69,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainTS(self):
         stem = "kw'$ats+N"
@@ -90,7 +92,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainK(self):
         stem = "t'$ak+N"
@@ -112,7 +115,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainKW(self):
         stem = 'l$akw+N'
@@ -134,7 +138,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainK_(self):
         stem = "'$eek_+N"
@@ -156,7 +161,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainOK_(self):
         stem = "j$ok_+N"
@@ -178,7 +184,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_plainOOK_(self):
         stem = "'ay$ook_+N"
@@ -200,7 +207,8 @@ class TestPlainStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
 class TestGlottalStops(TestFSTOutput):
 
@@ -240,7 +248,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_glottT(self):
         stem = "hl$it'+N"
@@ -262,7 +271,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_glottTS(self):
         stem = "ts'$uuts'+N"
@@ -284,7 +294,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_glottTL(self):
         stem = "giky'$otl'+N"
@@ -306,7 +317,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss, 
+                                            len(expected_forms)))
 
     def test_glottalK(self):
         stem = "n$aasik'+N"
@@ -328,7 +340,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottKW(self):
         stem = "t'$ikw'+N"
@@ -350,7 +363,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottK_(self):
         stem = "han$ak_'+N"
@@ -372,7 +386,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottOK_(self):
         stem = "ts'$ok_'+N"
@@ -394,7 +409,8 @@ class TestGlottalStops(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestFricatives(TestFSTOutput):
 
@@ -432,7 +448,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_fricHL(self):
         stem = "k'$uuhl+N"
@@ -454,7 +471,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_fricX(self):
         stem = "l$ax+N"  # not sure if these should also be optionally glided
@@ -476,7 +494,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_fricXW(self):
         stem = "l$aaxw+N"
@@ -498,7 +517,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_fricX_(self):
         stem = "'n$ax_+N"
@@ -520,7 +540,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_fricOX_(self):
         stem = "n$ox_+N"
@@ -542,7 +563,8 @@ class TestFricatives(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestPlainSonorants(TestFSTOutput):
 
@@ -579,7 +601,8 @@ class TestPlainSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_plainN(self):
         stem = 'b$an+N'
@@ -601,7 +624,8 @@ class TestPlainSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_plainL(self):
         stem = "haw$il+N"
@@ -623,7 +647,8 @@ class TestPlainSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_plainW(self):
         stem = "g_awk_'$aw+N"
@@ -645,7 +670,8 @@ class TestPlainSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestGlottalSonorants(TestFSTOutput):
 
@@ -683,7 +709,8 @@ class TestGlottalSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 #     def test_glottalN(self):
 #         stem = "b$an+N"
@@ -705,7 +732,8 @@ class TestGlottalSonorants(TestFSTOutput):
 #                 with self.subTest(form=stem+gloss):
 #                     self.assertIn(form, result_list)
 #             self.assertEqual(len(result_list), len(expected_forms),
-#                 "{} should have {} results".format(stem+gloss, len(expected_forms)))
+#                 "{} should have {} results".format(stem+gloss,
+                                            # len(expected_forms)))
 
     def test_glottalL(self):
         stem = "lig$i'l+N"
@@ -727,7 +755,8 @@ class TestGlottalSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottalY(self):
         stem = "mask_'ay$aa'y+N"
@@ -749,7 +778,8 @@ class TestGlottalSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottalW(self):
         stem = "x_b$aa'w+N"
@@ -762,7 +792,8 @@ class TestGlottalSonorants(TestFSTOutput):
             ('-3PL.II',    ["x̲baa'wdiit"]),
             ('[-3.II]=CN',   ["x̲baa'whl"]),
             ('[-3.II]=PN',   ["x̲baa'ws"]),
-            # ('-SX',     ["x̲baa'wit", "x̲baa'ut"]),  # haven't applied this yet, keep in mind
+            # ('-SX',     ["x̲baa'wit", "x̲baa'ut"]),  
+                # haven't applied this yet, keep in mind
             ('-ATTR',   ["x̲baa'wim", "x̲baa'um", "x̲baa'wa"]),
         ]
         for gloss, expected_forms in expected_map:
@@ -771,7 +802,8 @@ class TestGlottalSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_glottalStop(self):
         stem = "n$oo'o+N"
@@ -793,7 +825,8 @@ class TestGlottalSonorants(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestVowels(TestFSTOutput):
 
@@ -831,7 +864,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_shortAlonger(self):
         stem = "ha'niig$ilbilsa+N"
@@ -853,7 +887,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_longU(self):
         stem = "gy$uu+N"
@@ -875,7 +910,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_longE(self):
         stem = "y$ee+VI"
@@ -895,7 +931,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_longElonger(self):
         stem = "majag_al$ee+N"
@@ -917,7 +954,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_longI(self):
         stem = "k_'$esii+N"
@@ -939,7 +977,8 @@ class TestVowels(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestClusters(TestFSTOutput):
 
@@ -979,7 +1018,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_YT(self):
         stem = "hal$ayt+N"
@@ -1001,7 +1041,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_LP(self):
         stem = "w$ilp+N"
@@ -1023,7 +1064,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_LKW(self):
         stem = "s$ilkw+N"
@@ -1045,7 +1087,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_TX(self):
         stem = "ts'$amtx+N"
@@ -1067,7 +1110,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_SXW(self):
         stem = "biy$oosxw+N"
@@ -1089,7 +1133,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_X_XW(self):
         stem = "'$ax_xw+N"
@@ -1111,7 +1156,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_PX_(self):
         stem = "h$upx_+N"
@@ -1133,7 +1179,8 @@ class TestClusters(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestTrVowel(TestFSTOutput):
 
@@ -1167,7 +1214,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepSibilant(self):
         stem = "t'$is+VT"
@@ -1184,7 +1232,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepPlainSonorant(self):
         stem = "g$in+VT"
@@ -1201,7 +1250,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepGlotSonorant(self):
         stem = "g_$e'n+VT"
@@ -1218,7 +1268,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepGlotStop(self):
         stem = "g$a'a+VT"
@@ -1235,7 +1286,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                             "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                             "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepUnstressedSonorant(self):
         stem = "hl$andin+VT"
@@ -1252,7 +1304,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list, "expected for "+gloss)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_indepVowel(self):
         stem = "'w$a+VT"
@@ -1269,7 +1322,8 @@ class TestTrVowel(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 class TestBigT(TestFSTOutput):
 
@@ -1305,7 +1359,8 @@ class TestBigT(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
     
     def test_native_no_extraT(self):
         stem = "m$ahlT+VT"
@@ -1335,7 +1390,8 @@ class TestBigT(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_native_postV(self):
         stem = "siw$aT+VT"
@@ -1353,7 +1409,8 @@ class TestBigT(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_postR_constructed(self):
         stem = "w$an+VT"
@@ -1371,7 +1428,8 @@ class TestBigT(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                             "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                             "{} should have {} results".format(stem+gloss,
+                                                        len(expected_forms)))
 
     def test_postV_constructed(self):
         stem = "w$a+N"
@@ -1384,7 +1442,8 @@ class TestBigT(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                             "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                             "{} should have {} results".format(stem+gloss,
+                                                        len(expected_forms)))
 
 
 class TestIrregulars(TestFSTOutput):
@@ -1413,7 +1472,8 @@ class TestIrregulars(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_hardeningX_(self):
         stem = "'$algax_+VI"
@@ -1429,7 +1489,8 @@ class TestIrregulars(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_vocalizedX(self):
         stem = "l$imx+VI"
@@ -1445,7 +1506,8 @@ class TestIrregulars(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
 
 @unittest.skip("derivational morphemes no longer included")
@@ -1488,7 +1550,8 @@ class TestCausValAntip(TestFSTOutput):
                 with self.subTest(form=stem+gloss):
                     self.assertIn(form, result_list)
             self.assertEqual(len(result_list), len(expected_forms),
-                             "{} should have {} results".format(stem+gloss, len(expected_forms)))
+                             "{} should have {} results".format(stem+gloss,
+                                                        len(expected_forms)))
 
     def test_caus_stem_types(self):
         expected_map = [
@@ -1506,7 +1569,8 @@ class TestCausValAntip(TestFSTOutput):
                     self.assertIn(form, result_list)
             with self.subTest(gloss=gloss):
                 self.assertEqual(len(result_list), len(expected_forms),
-                                "{} should have {} results".format(result_list, len(expected_forms)))
+                                "{} should have {} results".format(result_list, 
+                                                        len(expected_forms)))
 
 
 if __name__ == '__main__':

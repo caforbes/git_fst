@@ -3,8 +3,8 @@ from test import TestFSTOutput, BASIC_EW
 
 """
 This suite checks the correct application of E-W dialectal rules on
-actual gitksan words.
-These tests use a version of the FST (v1 with dialect rules) as a dependency.
+actual gitksan words. These tests use a version of the FST 
+(v1 with dialect rules) as a dependency.
 """
 
 class TestGwiGu(TestFSTOutput):

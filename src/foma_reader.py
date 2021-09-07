@@ -9,8 +9,10 @@ class FomaError(Exception):
 
 class FomaReader():
     """
-    Runs the input foma file as a subprocess and reads/returns its output.
-    If a bin file also input, lookup queries can be made via flookup.
+    Orchestrator object to interact with the foma subprocess.
+    Takes a foma file and optional foma binary file as input.
+    Runs the foma file and returns its output; lookup queries can 
+    be made via flookup if a binary file is provided.
     """
 
     def __init__(self, foma_file: str, bin_file: str = None) -> None:
@@ -19,10 +21,10 @@ class FomaReader():
         self._validate()
         self._load()
 
-    def query(self, command, raw=False) -> str:
-        '''
-        Runs foma as a subprocess and returns its output.
-        '''
+    def query(self, command: str, raw: bool = False) -> str:
+        """
+        Runs foma as a subprocess and returns the output of query.
+        """
         foma = subprocess.Popen(['foma'],
                                 stdin=subprocess.PIPE,
                                 stdout=subprocess.PIPE,
@@ -36,19 +38,21 @@ class FomaReader():
         except subprocess.TimeoutExpired:
             foma.kill()
             outs, errs = foma.communicate()
-            raise FomaError("Timeout...\nOutput: \n{}Errors:\n{}".format(outs, errs))
+            raise FomaError("Timeout...\nOutput: \n{}Errors:\n{}".format(outs,
+                                                                        errs))
         
         if raw:
             return outs
         else:
             return self._format_foma_output(outs)
     
-    def lookup(self, query: str, inverse: bool=False) -> list:
-        '''
-        Runs either a foma 'apply up/down' query or flookup to find the 
-        other side of a given query. Returns output as a list of strings.
-        Regular = apply up (parse/analyze), Inverse = apply down (generate).
-        '''
+    def lookup(self, query: str, inverse: bool = False) -> list:
+        """
+        Runs foma 'apply up/down' or calls flookup to find the other
+        side of a given query. Returns output as a list of strings.
+            Default / inverse False = apply up (parse/analyze)
+            Reverse / inverse True = apply down (generate)
+        """
         if self._binfile:
             result = self._flookup(query, inverse)
             return self._flookup_as_list(result)
@@ -57,10 +61,10 @@ class FomaReader():
             result = self.query(command + query)
             return self._format_applyx_as_list(result)
 
-    def _flookup(self, query: str, inverse: bool):
+    def _flookup(self, query: str, inverse: bool) -> str:
         """
-        Using the specified bin file, runs the flookup utility (inverted if desired)
-        and saves forms that result when query is passed to the foma parser.
+        Using the specified bin file, runs the flookup utility
+        (inverted if desired) and returns the output string.
         """
         command = ["flookup", '-x', self._binfile]
         if inverse:
@@ -84,10 +88,12 @@ class FomaReader():
         return output
 
     def _load(self) -> None:
-        '''
-        Runs/reads the initial output of the foma compilation and stores the final
-        state/arc/path figures. Parses the output for foma warnings and prints them.
-        '''
+        """
+        Runs the foma compilation and stores the its state/arc/path
+        figures. If none output, raises an error; else saves these
+        figures to variables stored in the FomaReader.
+        Parses any foma warnings and prints them to console.
+        """
         raw_foma = self.query(None, raw=True)
 
         # needs testing -- not sure if it displays warnings yet
@@ -106,9 +112,11 @@ class FomaReader():
             print('Warning: no binary file for this compilation; lookups are slow.')
 
     def _validate(self) -> None:
-        """ Ensures that foma and binfile paths lead to valid files.
-            If no foma file, raise error; if no bin file, delete the reference
-            (and attempt to seek it directly from foma output upon loading).
+        """
+        Ensures that input foma and bin paths lead to valid files.
+        If foma file is invalid, raises an error.
+        If bin file is invalid, the reference is deleted.
+        An alternate bin location is sought from foma output on load.
         """
         if not os.path.exists(self._fomafile):
             raise FileNotFoundError('Cannot find foma file: {}'.format(self._fomafile))
@@ -116,10 +124,12 @@ class FomaReader():
             self._binfile = None
 
     def _seek_binfile(self, foma_output: str) -> bool:
-        ''' Attempt to read the binary file for this foma compilation
-            based on the text output when loading foma. 
-            Saves to the object if the file exists.
-        '''
+        """
+        Attempts to read the location for a binary file for this 
+        foma compilation based on the text output when loading foma. 
+        Saves location to the object if the file exists.
+        Returns a boolean of whether a binary file is ultimately found.
+        """
         bin_text = re.findall("Writing to file (\S+).", foma_output)
         if bin_text:
             bin_text = bin_text[-1]
@@ -135,8 +145,9 @@ class FomaReader():
     
     @staticmethod
     def format_foma_pairs(text: str) -> list:
-        """ Formats text output from a foma 'pairs' command as a
-            nice list of tuples.
+        """
+        Formats text output from a foma 'pairs' command as a
+        nice list of tuples. Removes empty lines.
         """
         return [tuple(item.split("\t"))
                 for item in text.splitlines()
@@ -144,8 +155,9 @@ class FomaReader():
 
     @staticmethod
     def _format_foma_output(text: str) -> str:
-        """ Formats text output from foma as a nice text block
-            without the initial blob from loading foma.
+        """
+        Formats text output from foma as a nice text block.
+        Removes the initial blob from loading foma.
         """
         # remove output from loading foma
         text = text.split('foma[1]:')[1]
@@ -155,17 +167,18 @@ class FomaReader():
 
     @staticmethod
     def _format_applyx_as_list(text: str) -> list:
-        """ Formats text output from foma 'apply up/down' as a list
-            of the output lines, stripping the apply up/down query and prompt.
+        """
+        Formats text output from foma 'apply up/down' as a list
+        of the output lines. Strips the apply up/down query and prompt.
         """
         return text.splitlines()[1:-1]
 
     @staticmethod
     def _flookup_as_list(text: str) -> list:
-        '''
+        """
         Formats the output of the flookup process as a list.
         Removes empty analyses.
-        '''
+        """
         return [item for item in text.splitlines()
                 if item and item != '+?']
 

@@ -71,7 +71,8 @@ class TestLexiconFromDict (unittest.TestCase):
     def test_lexc_string(self):
         actual = self.lexicon.as_lexc_str()
         # apple should be imported as 'apple
-        self.assertRegex(actual, 'LEXICON RootNoun\n\'apple \tNoun ;\ncat \tNoun ;')
+        self.assertRegex(actual, 
+                'LEXICON RootNoun\n\'apple \tNoun ;\ncat \tNoun ;')
 
 
 class TestLexiconFromCSV (unittest.TestCase):

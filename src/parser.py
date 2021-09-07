@@ -1,7 +1,6 @@
 import re
 import json
 import os
-from types import new_class
 
 from . import helpers, ilg_helpers, STEM_PAT
 from .builder import FomaBuilder
@@ -21,12 +20,12 @@ FULL_EW = os.path.join(proj_root, 'fst/full_dialectal.json')
 
 class Parser():
     """
-    Skeleton class for FST in foma. Compiles lexc and foma files and captures
-    output. By default, constructs and loads the fullest FST version
-    (includes east/west variation, functional items)
+    Skeleton class for FST in foma. Compiles lexc and foma files
+    and captures output. By default, constructs and loads the fullest 
+    FST version (includes east/west variation, functional items).
 
     load_input = path to a foma file or json configuration file
-                default: 'fst/full_dialect
+                default: 'fst/full_dialectal.json'
     """
 
     def __init__(self, load_input: str or dict = FULL_EW) -> None:
@@ -45,17 +44,17 @@ class Parser():
         else:
             raise ParserError('Unknown file type provided for foma file')
         
-        # also need to validate to make sure foma location exists and is a file
+        # TODO: validate to make sure foma location exists/is file
 
         self._reader = FomaReader(foma_location, bin_location)
         self.analyzer_dict = {}
         self.generator_dict = {}
 
     def analyze(self, query: str) -> list:
-        '''
+        """
         Input a surface wordform; returns list of possible analyses.
         Saves wordforms to internal dictionary if not already present.
-        '''
+        """
         query = helpers.convert_to_underscore(query)
         if query not in self.analyzer_dict:
             self.analyzer_dict[query] = self._reader.lookup(query)
@@ -63,8 +62,9 @@ class Parser():
     
     def analyze_to_ilg(self, query: str) -> list:
         """
-        Input a surface wordform; returns list of possible analyses converted
-        to their nearest equivalent as seen in the interlinear gloss format used by the Gitksan lab.
+        Input a surface wordform; returns list of possible analyses
+        converted to their nearest equivalent as seen in the 
+        interlinear gloss format used by the Gitksan lab.
         Stems are given as ___ rather than as a one-word definition.
         """
         fst_output = self.analyze(query)
@@ -73,23 +73,28 @@ class Parser():
         return helpers.unique(converted)
 
     def generate(self, query: str) -> list:
-        '''
-        Input a foma analysis; returns list of possible surface wordforms.
-        Saves analyses to internal dictionary if not already present.
-        '''
+        """
+        Input a foma analysis; returns list of possible surface 
+        wordforms. Saves analyses to an internal dictionary.
+        """
         if query not in self.generator_dict:
             result_list = self._reader.lookup(query, inverse=True)
-            result_list = [helpers.convert_to_lowline(item) for item in result_list]
+            result_list = [helpers.convert_to_lowline(item)
+                            for item in result_list]
             self.generator_dict[query] = result_list
         return self.generator_dict[query]
 
     def lemmatize(self, form: str) -> list:
-        """ Input a word, returns a list of lists of tuples. Each sublist is
-            a possible breakdown of the word; each tuple references an identified
-            lemma in the word and its category.
-            Returns None if no breakdowns/lemmas can be identified.
-            Compound forms have multiple tuples [("form", "A"), ("form", "B")]
-            Forms where variants can be generated are split with slashes ("form/Form", "X")
+        """
+        Input a word, returns a list of lists of tuples. Each sublist is
+        a possible breakdown of the word; each tuple references an 
+        identified lemma in the word and its category.
+        Returns None if no breakdowns/lemmas can be identified.
+        Compound forms have multiple tuples:
+            e.g. [("form", "A"), ("form", "B")]
+        Forms where multiple variants can be generated are split 
+        with slashes within the first tuple element:
+            e.g. ("form/Form", "X")
         """
         parses = self.analyze(form)
         if not parses: return None
@@ -118,27 +123,30 @@ class Parser():
         return result
     
     def pairs(self) -> list:
-        '''
-        Reads the foma output of the pairs command and stores as a list of
-        2-tuple word pairs (analysis, surfaceform).
-        Returns a list of up to 100 tuple pairs.
-        '''
+        """
+        Calls foma to run 'pairs', generating the last 100 listed pairs.
+        Reads the foma output and stores as a list of up to 100 2-tuples
+        in the format: (analysis, surfaceform).
+        """
         result = self._reader.query('pairs')
         return self._reader.format_foma_pairs(result)
 
     def random_pairs(self) -> list:
-        '''
+        """
         Calls foma to run 'random-pairs', generating random pairs.
         Returns a list of up to 100 tuple pairs.
-        '''
+        """
         result = self._reader.query('random-pairs')
         return self._reader.format_foma_pairs(result)
 
     def random_unique_pairs(self, limit: int = 50) -> list:
-        ''' Calls foma to run 'random-pairs', and stores unique results
-            up to the limit specified. May take a while since only 100 items
-            can be queried at a time.
-        '''
+        """
+        Calls foma to run 'random-pairs', and stores unique results
+        up to the limit specified. May take a while since only 100 items
+        can be queried at a time and foma may return duplicates.
+        Extended system usage prohibited by a timeout limit calculated
+        by the number of forms queried; throws a ParserError.
+        """
         if limit >= self._reader.paths:
             raise ParserError(
                 '{} random pairs requested, but {} available'.format(
@@ -156,14 +164,16 @@ class Parser():
                 result.append(item)
             
             if counter > (round(limit/3) + 1):
-                raise ParserError('Timeout: {} unique random items could not be found.'.format(limit))
+                raise ParserError('Timeout: ' +
+                    '{} unique random items could not be found.'.format(limit))
         
         return list(result)
     
     def _build(self, config: dict) -> tuple:
-        ''' Constructs a new foma file from configuration dictionary.
-            Returns a tuple of the new foma filepath and binary filepath.
-        '''
+        """
+        Constructs a new foma file from configuration dictionary.
+        Returns a tuple of the new foma filepath and binary filepath.
+        """
         builder = FomaBuilder(config)
         builder.build()
         return (builder.foma_filepath(), builder.fomabin_filepath())
@@ -174,7 +184,7 @@ class Parser():
         the FST parser ('upper' form). Outputs a 2-tuple consisting of:
             - the generated form (with variants separated by slashes)
             - the category abbreviation for that form
-        e.g. 'cat+N' -> ('cat/Cat', 'N')
+            e.g. 'cat+N' -> ('cat/Cat', 'N')
         """
         forms = self.generate(analysis_str)
         pat = r"\+([A-Z]+)"  # finds partofspeech abbreviation
