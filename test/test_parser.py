@@ -1,4 +1,3 @@
-from git_fst.src import ilg_helpers
 from src.parser import Parser, ParserError
 from src.ilg_helpers import STEM_PAT
 import unittest
@@ -141,7 +140,7 @@ class TestParser(TestFSTOutput):
         self.assertEqual(result, sorted(expected))
     
     def test_lemmaTuple(self):
-        result = self.fst._lemma_str_to_tuple("w$an+N")
+        result = self.fst._analysis_to_lemma_tuple("w$an+N")
         expected = ("wan", "N")
         self.assertEqual(result, expected)
 
@@ -184,7 +183,7 @@ class TestParserVariant(TestFSTOutput):
         self.assertEqual(result, sorted(expected))
     
     def test_lemmaTupleVariants(self):
-        result = self.fst._lemma_str_to_tuple("w$an+N")
+        result = self.fst._analysis_to_lemma_tuple("w$an+N")
         expected = ("wan/wen", "N")
         self.assertEqual(result, expected)
 
@@ -220,13 +219,18 @@ class TestParserFunctional(TestFSTOutput):
         self.assertEqual(result, expected)
     
     def test_lemmatizeDemonstrative(self):
+        result = self.fst.lemmatize('tun')
+        expected = [[("-un", "DEM")]]
+        self.assertEqual(result, expected)
+    
+    def test_lemmatizeDemonstrativePl(self):
         result = self.fst.lemmatize('dipun')
-        expected = [[("tun", "DEM")]]
+        expected = [[("-un", "DEM")]]
         self.assertEqual(result, expected)
     
     def test_lemmatizeDemonstrativeComplex(self):
         result = self.fst.lemmatize('asun')
-        expected = [[("a", "P"), ("tun", "DEM")]]
+        expected = [[("a", "P"), ("-un", "DEM")]]
         self.assertEqual(result, expected)
     
 

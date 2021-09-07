@@ -114,7 +114,7 @@ class Parser():
         if output:
             result['fst_output'] = output
             result['ilg_matches'] = ilg_helpers.filter_matching_glosses(
-                output, story_gloss)
+                                                output, story_gloss)
         return result
     
     def pairs(self) -> list:
@@ -184,7 +184,7 @@ class Parser():
             return (surface_forms, abbrev)
         elif abbrev == 'DEM':
             if 'PROX' in analysis_str:
-                surface_forms = 'tun'
+                surface_forms = '-un'
             else:
-                surface_forms = 'tust'
+                surface_forms = '-ust'
             return (surface_forms, abbrev)
