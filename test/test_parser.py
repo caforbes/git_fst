@@ -29,7 +29,7 @@ class TestParser(TestFSTOutput):
         }
         super().setUpClass(BASIC_E, test_stems)
 
-    # analyze/generate forms
+    # tests for analyze function
     def test_analyzeSuccess(self):
         lookup_result = self.fst.analyze('gwila')
         self.assertIsInstance(lookup_result, list)
@@ -47,6 +47,11 @@ class TestParser(TestFSTOutput):
         self.assertEqual(0, len(lookup_result),
             "Should return empty list, returns {}".format(lookup_result))
 
+    def test_analyzeLowLine(self):
+        lookup_result = self.fst.analyze('g̲an')
+        self.assertIn('g_$an+N', lookup_result)
+
+    # tests for generate function
     def test_generateSuccess(self):
         lookup_result = self.fst.generate('gwil$a+N')
         self.assertIsInstance(lookup_result, list)
@@ -64,15 +69,11 @@ class TestParser(TestFSTOutput):
         self.assertEqual(0, len(lookup_result),
             "Should return empty list")
 
-    def test_analyzeLowLine(self):
-        lookup_result = self.fst.analyze('g̲an')
-        self.assertIn('g_$an+N', lookup_result)
-
     def test_generateLowLine(self):
         lookup_result = self.fst.generate('g_$an+N')
         self.assertIn('g̲an', lookup_result)
 
-    # list pairs
+    # test pairs, random pairs, unique pairs list functions
     def test_pairsIsList(self):
         result = self.fst.pairs()
         self.assertIsInstance(result, list)
@@ -101,7 +102,7 @@ class TestParser(TestFSTOutput):
         with self.assertRaises(ParserError):
             self.fst.random_unique_pairs(1000)
     
-    # lemmatize - one form
+    #  test lemmatize function for various input
     def test_lemmatizeEqual(self):
         result = self.fst.lemmatize('gwila')
         expected = [[("gwila", "N")]]
@@ -139,6 +140,7 @@ class TestParser(TestFSTOutput):
                     [("sim", "MDF"), ("wan", "VI")]]
         self.assertEqual(result, sorted(expected))
     
+    # test make lemma tuple function
     def test_lemmaTuple(self):
         result = self.fst._analysis_to_lemma_tuple("w$an+N")
         expected = ("wan", "N")
@@ -160,8 +162,7 @@ class TestParserVariant(TestFSTOutput):
         }
         super().setUpClass(BASIC_EW, test_stems)
 
-    # lemmatize - one form
-
+    # test lemmatize function with dialect variation
     def test_lemmatizeVariantsStandard(self):
         result = self.fst.lemmatize('lan')
         expected = [[("lan/len", "N")]]
@@ -182,6 +183,7 @@ class TestParserVariant(TestFSTOutput):
         expected = [[("'nii", "PVB"), ("wan/wen", "VI")]]
         self.assertEqual(result, sorted(expected))
     
+    # test make lemma tuple function with dialect variation
     def test_lemmaTupleVariants(self):
         result = self.fst._analysis_to_lemma_tuple("w$an+N")
         expected = ("wan/wen", "N")
@@ -201,8 +203,7 @@ class TestParserFunctional(TestFSTOutput):
         }
         super().setUpClass(FULL_E, test_stems)
 
-    # lemmatize - one form
-
+    # test lemmatize function for functional lemmas
     def test_lemmatizeFunctionalFromDict(self):
         result = self.fst.lemmatize('dim')
         expected = [[("dim", "MOD")]]
