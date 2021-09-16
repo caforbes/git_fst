@@ -50,12 +50,19 @@ class Parser():
         self.analyzer_dict = {}
         self.generator_dict = {}
 
-    def analyze(self, query: str) -> list:
+    def analyze(self, query: str, gloss_validator: str = None) -> list:
         """
         Input a surface wordform; returns list of possible analyses.
         Saves wordforms to internal dictionary if not already present.
         """
         query = helpers.convert_to_underscore(query)
+
+        if gloss_validator:
+            # triggers one self-referential lookup without validators
+            full_result = self.analyze_properties(query, gloss_validator)
+            return full_result['validated']
+
+        # base case for analyze and analyze_properties recursive lookup
         if query not in self.analyzer_dict:
             self.analyzer_dict[query] = self._reader.lookup(query)
         return self.analyzer_dict[query]
@@ -113,13 +120,48 @@ class Parser():
         if results:
             return sorted(results)
     
-    def analyze_and_validate(self, word: str, story_gloss: str) -> dict:
-        result = {}
+    def analyze_properties(self, word: str, gloss_validator: str = None) -> dict:
+        """
+        Input a surface wordform and optional validation string.
+        Returns a dictionary holding properties of the string and its
+        output after running through the analyze (foma: apply up) 
+        function. Also holds information about validated output upon
+        comparison with optionally supplied validator strings.
+        Dictionary keys:
+            - input (surface wordform: str)
+            - output (analyses returned by FST: list of str)
+            - *valid_gloss (analyses filtered by gloss_validator:
+                            list of str)
+            - *valid_gloss_scored (analyses filtered by gloss_validator
+                                    with their validation score,
+                                    list of 2-tuples (str, num))
+        """
+        result = {'input': word}
         output = self.analyze(word)
+        result['output'] = output
+        
         if output:
-            result['fst_output'] = output
-            result['ilg_matches'] = ilg_helpers.filter_matching_glosses(
-                                                output, story_gloss)
+            if gloss_validator:
+                res = ilg_helpers.filter_matching_glosses(output, 
+                                    gloss_validator)
+                result['valid_gloss_scored'] = res
+                result['valid_gloss'] = [text for text, score in res]
+                result['validated'] = result['valid_gloss'].copy()
+        
+        # has a superset of options and 1 or 2 possible validated options via different criteria
+        # want to output:
+            # if 2 validated options: only their overlapping contents
+            # if 1 validated option: return that list
+            # else, don't make validated list
+        
+        # if gloss input only, and has 4 options, return those 4
+        # if gloss input with 0, return empty list
+        # if segment input only, and has 2 options, return those 2
+        # if gloss input with 4, and segment input with 2, and the 2 overlap, return all 2
+        # if gloss input with 4, and segment input with 2, and only 1 overlaps, return the 1
+        # if gloss input with 4, and segment input with 2, and no overlaps, return empty list
+        # if gloss input with 4, and segment input with 0, return empty list
+
         return result
     
     def pairs(self) -> list:

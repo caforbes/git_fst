@@ -1,3 +1,4 @@
+import unittest
 from src.parser import Parser, ParserError
 from src.ilg_helpers import STEM_PAT
 import unittest
@@ -7,7 +8,7 @@ from test import TestFSTOutput, BASIC_E, BASIC_EW, FULL_E
 This suite builds a parser object end-to-end from input files 
 and tests the behavior of its objects.
 Files are generated and cleaned up on close.
-These tests use the actual FST (v1) as a dependency.
+These tests use the actual FST (v1, v3) as a dependency.
 """
 
 
@@ -20,8 +21,6 @@ class TestParser(TestFSTOutput):
                 "g_$an",
                 "gwil$a",
                 "w$an",
-                # "test",
-                # "moretest",
             ],
             'IntransitiveVerb': ["w$an"],
             'Preverb': ["'nii"], 
@@ -50,6 +49,16 @@ class TestParser(TestFSTOutput):
     def test_analyzeLowLine(self):
         lookup_result = self.fst.analyze('g̲an')
         self.assertIn('g_$an+N', lookup_result)
+    
+    def test_analyzeValidateGlossMatch(self):
+        lookup_result = self.fst.analyze('g̲an', gloss_validator='tree')
+        self.assertIn('g_$an+N', lookup_result)
+    
+    def test_analyzeValidateGlossNoMatch(self):
+        # no matches when FST produces more morphemes than actually found
+        lookup_result = self.fst.analyze('g̲anit', gloss_validator='tree')
+        self.assertEqual(len(lookup_result), 0)
+        # but note morphemes in validator string need not be matched
 
     # tests for generate function
     def test_generateSuccess(self):
@@ -135,7 +144,7 @@ class TestParser(TestFSTOutput):
         self.assertEqual(result, sorted(expected))
     
     def test_lemmatizeMultipleStemsOptions(self):
-        result = self.fst.lemmatize("simiwani'm") # should be simwan
+        result = self.fst.lemmatize("simiwani'm") # TODO: should be simwan
         expected = [[("sim", "MDF"), ("wan", "N")],
                     [("sim", "MDF"), ("wan", "VI")]]
         self.assertEqual(result, sorted(expected))
@@ -145,6 +154,62 @@ class TestParser(TestFSTOutput):
         result = self.fst._analysis_to_lemma_tuple("w$an+N")
         expected = ("wan", "N")
         self.assertEqual(result, expected)
+    
+    # test analyze_complete function
+    def test_analyzeProperties_basic(self):
+        query = "gwila"
+        result = self.fst.analyze_properties(query)
+
+        self.assertEqual(result.get('input'), query)
+        self.assertEqual(result.get('output'), self.fst.analyze(query))
+        self.assertEqual(result.get('output'), ['gwil$a+N'])
+        
+        # no final validation because no validators input
+        self.assertEqual(result.get('validated'), None)
+    
+    def test_analyzeProperties_validateGlossExact(self):
+        query = "gwila"
+        result = self.fst.analyze_properties(query, gloss_validator='blanket')
+
+        # result object contains raw scored analyses
+        raw_validated = result.get('valid_gloss_scored')
+        self.assertIsInstance(raw_validated, list)
+        self.assertNotEqual(len(raw_validated), 0)
+        self.assertIsInstance(raw_validated[0], tuple)
+
+        # result object contains list of validated analyses
+        validated = result.get('valid_gloss')
+        self.assertIsInstance(validated, list)
+        self.assertIn('gwil$a+N', validated)
+    
+        self.assertEqual(validated, result.get('validated'))
+    
+    def test_analyzeProperties_validateGlossToSubset(self):
+        query = "gwilat"
+        result = self.fst.analyze_properties(query, gloss_validator='blanket-3.II')
+
+        validated = result.get('valid_gloss')
+        self.assertTrue(len(validated) < len(result.get('output')))
+        self.assertIn('gwil$a+N-3.II', validated)
+        self.assertNotIn('gwil$a+N-SX', validated)
+    
+        self.assertEqual(validated, result.get('validated'))
+    
+    def test_analyzeProperties_validateGlossNoMatches(self):
+        query = "gwilan"
+        result = self.fst.analyze_properties(query, gloss_validator='what-eggs')
+
+        # result object with raw scores is empty list
+        raw_validated = result.get('valid_gloss_scored')
+        self.assertIsInstance(raw_validated, list)
+        self.assertEqual(len(raw_validated), 0)
+
+        # result object with valid analyses is empty list
+        validated = result.get('valid_gloss')
+        self.assertIsInstance(validated, list)
+        self.assertEqual(len(validated), 0)
+    
+        self.assertEqual(validated, result.get('validated'))
 
 
 
