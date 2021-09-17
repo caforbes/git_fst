@@ -109,6 +109,7 @@ def match_score(converted_gloss: str, story_gloss: str) -> int:
     # refactor if we need to consider duplicate morphemes (TODO)
     for morph in fst_morphs:
         if morph in ilg_morphs:
+            # TODO: this can generate a score above 1 if enough matches
             score *= 1.15
         elif morph == '___':
             score *= 0.95
