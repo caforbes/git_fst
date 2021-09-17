@@ -6,7 +6,7 @@ Every lexical item in the dictionary (`/fst/dict.csv`) requires a *category* to 
 
 Gitksan is an endangered language that is undergoing active documentation. There has not yet been a detailed description of the full range of lexical categories in Gitksan, so this resource serves as an initial attempt (though Tarpent's grammar of Nisg̲a'a is a valuable related resource). 
 
-The dictionary file used in this project is shared with a publically-accessible talking dictionary website in use by members of the speech community, including language learners and teachers. This places some constraints on the the structure of the dictionary and nature of category labels.
+The dictionary file used in this project is shared with a publically-accessible talking dictionary website in use by members of the speech community, including language learners and teachers. This places some constraints on the the structure of the dictionary and nature of category labels, which I discuss here.
 
 The lexical categories used in this dictionary will, in the future, form some of the basis for a broader language-learning curriculum, such as an accompanying pedagogical grammar. This means that the categories used should reflect important distinctions that are critical to understanding the holistic behavior of groups of words, including syntactic properties (for example, the ability to subordinate a clause, triggering dependent-style inflection).
 
@@ -23,8 +23,16 @@ The primary obligatory columns in the dictionary file, for the purposes of its i
 ## Categories
 
 ### Address form
+
+A family/kinship term used in a vocative way, as a means of direct address. Not expected to take any inflection at all.
+
 ### Adverb
 ### Auxiliary
+
+A preverbal element which modifies the main clause/verb, and can host both Series I ergative clitics and second-position clitics. Usually derived from an intransitive verb, and contributing tense, aspect, or mood-related information.
+
+Examples: *nee* (NEG), *yukw* (PROG), *sgi* (should)
+
 ### Clause modifier
 ### Command
 ### Intransitive verb
@@ -41,7 +49,16 @@ The primary obligatory columns in the dictionary file, for the purposes of its i
 ### Preverb
 ### Relational noun (?)
 ### Psychological verb
+
+An subtype of intransitive verb which exclusively takes a possessed noun *g̲oot-X* (X's heart) as its argument, yielding a mental or emotional predicate that holds of the possessor. Morphologically, these verbs combine with *g̲oot* using intransitive agreement and a connective (*=hl*), attributive morphology (*-m*), or through bare juxtaposition.
+
+The argument *g̲oot* cannot be extracted but its possessor can be. Upon extraction of the possessor, extraction morphology (*-it*) is obligatory on *g̲oot*, but need not appear on the psych verb.
+
+Examples: *luu'am* (happy), *wantxw* (worry), *g̲etxw* (sad, disappointed)
+
 ### Quantifier
 ### Subordinator
 ### Transitive verb
 ### (Verb)
+
+A verb with unknown subcategory. (Not imported to FST)
