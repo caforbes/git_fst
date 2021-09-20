@@ -8,13 +8,13 @@ This resource is available under the Creative Commons Attribution No-Commercial 
 
 ## Version
 
-This is the first workable version (1.0, Aug 5, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items and cliticization, is still forthcoming.
+This is the first workable version (Aug 5, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items and cliticization, is still forthcoming.
 
 ## Dependencies
 
 You must install `foma`.
 
-Note that this project does not use the `foma.py` bindings as I could not get them to work; your independent installation of `foma` is accessed via a subprocess.
+Note that this project does not use the `foma.py` bindings as I could not get them to work. Instead, your independent installation of `foma` is accessed via a subprocess.
 
 ## Basic use
 
@@ -23,12 +23,14 @@ Load a parser by passing a path to a foma file or a configuration file. Inputtin
 ```python
 # the most complete FST is built + loaded by default, saved to fst/foma/git_full_EW.foma
 fst = src.Parser()
-# or choose another configuration, or list your own foma file
-fst = src.Parser('fst/basic_east.json')
+# or choose another configuration via constant or path
+fst = src.Parser(BASIC_E)
+fst = src.Parser('path/to/your/config.json')
+# or list your own foma file
 fst = src.Parser('path/to/git.foma')
 ```
 
-Use `analyze` and `generate` functions to translate upper-lower forms and vvsa. If the input foma file writes to a binary file, the flookup utility is used for faster queries.
+Use `analyze` to transduce lower forms to upper forms (producing the analysis) or `generate` transduce upper forms to lower forms (producing a surface wordform). If the input foma file writes to a binary file, the flookup utility is used for faster queries.
 
 ```python
 results = fst.analyze(word)
@@ -40,12 +42,12 @@ Use the `lemmatize` function to identify possible stem forms/categories for a gi
 
 ```python
 results = fst.lemmatize(word)
-for analysis in results:
-	print(analysis)
+for lemma_option in results:
+	print(lemma_option)
 ```
 
 ## more
 
-Unit/object tests are in `test*.py` files; FST output tests are `test_output*.py`.
+Unit tests are stored in `test*.py` files; FST output tests are stored in `test_output*.py` files.
 
 See `/docs` for further description.
