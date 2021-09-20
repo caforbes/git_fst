@@ -20,6 +20,9 @@ define BigTForm T -> t || _ "^" Vowel ,,
                 T -> t || Vowel "^"* _ "^" ,,
                 T -> i || Consonant "^"* _ "^" Consonant ;
 
+!--turn big T into V nucleus between consonants, elsewhere into t
+define BigTElsewhere T -> "(t)" || _  ;
+
 !--delete TR vowel before -diit suffix and after unstressed sonorant
 define TrDeletion   {^i} -> 0 || _ {^diit}  ,,
                     {^i} -> 0 || [Consonant | InitialCons]+ "^"* [i|a] [n|l] _ ;
@@ -179,6 +182,7 @@ regex Stems
     .o. BigTDoubling
     .o. TDiitDeletion
     .o. BigTForm
+    .o. BigTElsewhere
     .o. xwAfterVelar
     .o. dintxwEpenthesis
     .o. asxwForm
