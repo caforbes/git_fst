@@ -1332,6 +1332,7 @@ class TestBigT(TestFSTOutput):
         test_stems = {
             'TransitiveVerb': [
                 "m$ahl(t)",
+                "b$ats(t)",
                 "h$ats'(t)",
                 "siw$a(t)",
                 "g$uu(t)",
@@ -1373,6 +1374,25 @@ class TestBigT(TestFSTOutput):
                 result_list = self.fst.generate(stem+gloss)
                 self.assertEqual(len(result_list), 0,
                 "{} should not be a possible path".format(stem+gloss))
+
+    def test_native_postvoiceable(self):
+        stem = "b$atsT+VT"
+        expected_map = [
+            ('-TR-2SG.II',   ["batsdin"]),
+            ('-TR-3.II',     ["batsdit"]),
+            ('-TR-3PL.II',   ["batsdiit"]),
+            ('-2SG.II',      ["bajin"]),
+            ('-3.II',        ["bajit"]),
+            ('-3PL.II',      ["batsdiit"]),
+        ]
+        for gloss, expected_forms in expected_map:
+            result_list = self.fst.generate(stem+gloss)
+            for form in expected_forms:
+                with self.subTest(form=stem+gloss):
+                    self.assertIn(form, result_list)
+            self.assertEqual(len(result_list), len(expected_forms),
+                "{} should have {} results".format(stem+gloss,
+                                            len(expected_forms)))
 
     def test_native_postglottal(self):
         stem = "h$ats'T+VT"

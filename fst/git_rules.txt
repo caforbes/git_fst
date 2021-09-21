@@ -18,9 +18,9 @@ define TDiitDeletion    T -> 0 || Consonant "^"* _ {^i}* {^diit} ;
 !--turn big T into V nucleus between consonants, elsewhere into t
 define BigTForm T -> t || _ "^" Vowel ,,
                 T -> t || Vowel "^"* _ "^" ,,
-                T -> i || Consonant "^"* _ "^" Consonant ;
+                T -> "^" i || Consonant "^"* _ "^" Consonant ;
 
-!--turn big T into V nucleus between consonants, elsewhere into t
+!--turn all remaining big T in complete-final position into hypothetical (t)
 define BigTElsewhere T -> "(t)" || _  ;
 
 !--delete TR vowel before -diit suffix and after unstressed sonorant
