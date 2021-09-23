@@ -12,16 +12,16 @@ This is a workable but incomplete version (Sep 22, 2021). This analyzer is still
 
 ## Dependencies
 
-You must install `foma`.
+You must locally install `foma`.
 
 Note that this project does not use the `foma.py` bindings as I could not get them to work. Instead, your independent installation of `foma` is accessed via a subprocess.
 
-## Basic use
+## Basic use of Parser objects
 
-Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file will cause the foma file to be constructed upon loading (from dictionary csv, lexc files, etc). Sample configuration files can be found in `/fst`. Foma files constructed in this way are saved to `/fst/foma` and read automatically.
+Load a parser by passing a path to a foma file or a configuration file. Inputting a configuration file is the expected usage, and it will cause the foma file to be constructed dynamically from the dictionary and lexc files included in this project. Available configuration files are located in `/fst`. Foma files constructed from configuration files are saved to `/fst/foma` in your installation.
 
 ```python
-# the most complete FST is built + loaded by default, saved to fst/foma/git_full_EW.foma
+# default usage builds/loads the most complete FST, saved to fst/foma/git_full_EW.foma
 fst = src.Parser()
 # or choose another configuration via constant or path
 fst = src.Parser(BASIC_E)
@@ -46,7 +46,7 @@ for lemma_option in results:
 	print(lemma_option)
 ```
 
-## more
+## etc
 
 Unit tests are stored in `test*.py` files; FST output tests are stored in `test_output*.py` files.
 
