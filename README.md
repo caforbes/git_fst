@@ -8,7 +8,7 @@ This resource is available under the Creative Commons Attribution No-Commercial 
 
 ## Version
 
-This is the first workable version (Aug 5, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items and cliticization, is still forthcoming.
+This is a workable but incomplete version (Sep 22, 2021). This analyzer is still imperfect and contains many open issues. A complete gamut of tests, particularly for functional items, cliticization, and dialectal variation rules, is still forthcoming.
 
 ## Dependencies
 
