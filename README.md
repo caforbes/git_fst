@@ -51,3 +51,7 @@ for lemma_option in results:
 Unit tests are stored in `test*.py` files; FST output tests are stored in `test_output*.py` files.
 
 See `/docs` for further description.
+
+## Acknowledgement
+
+This project was created with the support of a Documenting Endangered Languages fellowship from the National Endowment for the Humanities and the National Science Foundation. Any views, findings, conclusions, or recommendation expressed in this (publication/program/website) do not necessarily reflect those of the NEH and the NSF.
