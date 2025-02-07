@@ -7,11 +7,11 @@ class FomaError(Exception):
     pass
 
 
-class FomaReader():
+class FomaReader:
     """
     Orchestrator object to interact with the foma subprocess.
     Takes a foma file and optional foma binary file as input.
-    Runs the foma file and returns its output; lookup queries can 
+    Runs the foma file and returns its output; lookup queries can
     be made via flookup if a binary file is provided.
     """
 
@@ -25,27 +25,27 @@ class FomaReader():
         """
         Runs foma as a subprocess and returns the output of query.
         """
-        foma = subprocess.Popen(['foma'],
-                                stdin=subprocess.PIPE,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
-                                text=True
-                                )
+        foma = subprocess.Popen(
+            ["foma"],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
 
         try:
-            command = 'source {}\n{}'.format(self._fomafile, command)
+            command = "source {}\n{}".format(self._fomafile, command)
             outs, errs = foma.communicate(command, timeout=5)
         except subprocess.TimeoutExpired:
             foma.kill()
             outs, errs = foma.communicate()
-            raise FomaError("Timeout...\nOutput: \n{}Errors:\n{}".format(outs,
-                                                                        errs))
-        
+            raise FomaError("Timeout...\nOutput: \n{}Errors:\n{}".format(outs, errs))
+
         if raw:
             return outs
         else:
             return self._format_foma_output(outs)
-    
+
     def lookup(self, query: str, inverse: bool = False) -> list:
         """
         Runs foma 'apply up/down' or calls flookup to find the other
@@ -57,7 +57,7 @@ class FomaReader():
             result = self._flookup(query, inverse)
             return self._flookup_as_list(result)
         else:
-            command = 'apply up\n' if not inverse else 'apply down\n'
+            command = "apply up\n" if not inverse else "apply down\n"
             result = self.query(command + query)
             return self._format_applyx_as_list(result)
 
@@ -66,16 +66,15 @@ class FomaReader():
         Using the specified bin file, runs the flookup utility
         (inverted if desired) and returns the output string.
         """
-        command = ["flookup", '-x', self._binfile]
+        command = ["flookup", "-x", self._binfile]
         if inverse:
-            command.insert(2, '-i')
+            command.insert(2, "-i")
 
         try:
             echo = subprocess.Popen(["echo", query], stdout=subprocess.PIPE)
-            flookup = subprocess.Popen(command,
-                                       stdin=echo.stdout,
-                                       stdout=subprocess.PIPE,
-                                       text=True)
+            flookup = subprocess.Popen(
+                command, stdin=echo.stdout, stdout=subprocess.PIPE, text=True
+            )
             echo.stdout.close()
 
             output, err = flookup.communicate()
@@ -84,7 +83,7 @@ class FomaReader():
             echo.wait()
             flookup.kill()
             flookup.wait()
-        
+
         return output
 
     def _load(self) -> None:
@@ -97,19 +96,19 @@ class FomaReader():
         raw_foma = self.query(None, raw=True)
 
         # needs testing -- not sure if it displays warnings yet
-        warnings = re.findall('(Warning: .*)', raw_foma)
+        warnings = re.findall("(Warning: .*)", raw_foma)
         for w in warnings:
             print(w)
 
-        fst_info = re.findall("(\d+) states?, (\d+) arcs?, (\d+) paths?.", raw_foma)
+        fst_info = re.findall(r"(\d+) states?, (\d+) arcs?, (\d+) paths?.", raw_foma)
         # needs testing
         if fst_info:
             self.states, self.arcs, self.paths = (int(n) for n in fst_info[-1])
         else:
             raise FomaError("Your foma file did not compile a machine!")
-        
+
         if not self._binfile and not self._seek_binfile(raw_foma):
-            print('Warning: no binary file for this compilation; lookups are slow.')
+            print("Warning: no binary file for this compilation; lookups are slow.")
 
     def _validate(self) -> None:
         """
@@ -119,18 +118,18 @@ class FomaReader():
         An alternate bin location is sought from foma output on load.
         """
         if not os.path.exists(self._fomafile):
-            raise FileNotFoundError('Cannot find foma file: {}'.format(self._fomafile))
+            raise FileNotFoundError("Cannot find foma file: {}".format(self._fomafile))
         if self._binfile and not os.path.exists(self._binfile):
             self._binfile = None
 
     def _seek_binfile(self, foma_output: str) -> bool:
         """
-        Attempts to read the location for a binary file for this 
-        foma compilation based on the text output when loading foma. 
+        Attempts to read the location for a binary file for this
+        foma compilation based on the text output when loading foma.
         Saves location to the object if the file exists.
         Returns a boolean of whether a binary file is ultimately found.
         """
-        bin_text = re.findall("Writing to file (\S+).", foma_output)
+        bin_text = re.findall(r"Writing to file (\S+).", foma_output)
         if bin_text:
             bin_text = bin_text[-1]
             if os.path.exists(bin_text):
@@ -140,18 +139,18 @@ class FomaReader():
                 binfile = os.path.join(foma_dir, bin_text)
                 if os.path.exists(binfile):
                     self._binfile = binfile
-        
+
         return True if self._binfile else False
-    
+
     @staticmethod
     def format_foma_pairs(text: str) -> list:
         """
         Formats text output from a foma 'pairs' command as a
         nice list of tuples. Removes empty lines.
         """
-        return [tuple(item.split("\t"))
-                for item in text.splitlines()
-                if item.strip() != '']
+        return [
+            tuple(item.split("\t")) for item in text.splitlines() if item.strip() != ""
+        ]
 
     @staticmethod
     def _format_foma_output(text: str) -> str:
@@ -160,9 +159,9 @@ class FomaReader():
         Removes the initial blob from loading foma.
         """
         # remove output from loading foma
-        text = text.split('foma[1]:')[1]
+        text = text.split("foma[1]:")[1]
         # remove the line with the command that was called
-        text = text.split('\n', 1)[1]
+        text = text.split("\n", 1)[1]
         return text.strip()
 
     @staticmethod
@@ -179,6 +178,4 @@ class FomaReader():
         Formats the output of the flookup process as a list.
         Removes empty analyses.
         """
-        return [item for item in text.splitlines()
-                if item and item != '+?']
-
+        return [item for item in text.splitlines() if item and item != "+?"]

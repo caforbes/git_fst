@@ -10,4 +10,4 @@ ipdb = "*"
 setuptools = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.12"
