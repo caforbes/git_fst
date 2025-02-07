@@ -4,7 +4,7 @@ Every lexical item in the dictionary (`/fst/dict.csv`) requires a *category* to 
 
 ## Pressures of the endangered-language context
 
-Gitksan is an endangered language that is undergoing active documentation. This resource serves as the initial attempt at a detailed description of syntactic and morphological categories (Tarpent's 1987 grammar of Nisg̲a'a is a valuable related resource and has been heavily referenced in development of these categories). The dictionary file used in this project is also shared with a publically-accessible talking dictionary website in use by members of the speech community, including language learners and teachers. This places some constraints on the the structure of the dictionary and nature of category labels.
+Gitksan is an endangered language that is undergoing active documentation. This resource serves as the initial attempt at a detailed description of syntactic and morphological categories (Tarpent's 1987 grammar of Nisg̱a'a is a valuable related resource and has been heavily referenced in development of these categories). The dictionary file used in this project is also shared with a publically-accessible talking dictionary website in use by members of the speech community, including language learners and teachers. This places some constraints on the the structure of the dictionary and nature of category labels.
 
 For the purposes of the analyzer, categories are only required to distinguish the specific *morphological* behavior of groups of stems. This relates strictly to their ability to combine with inflectional morphemes and clitics. Additional syntactic or semantic properties are irrelevant. The analyzer only reflects what is morphologically possible for a word, versus what is morphologically impossible (for example, whether a Series I ergative clitic can attach to a preverbal particle; there are words which can take all clitics, only third person clitics, or may not have any clitic, which all have similar syntactic behavior).
 
@@ -36,7 +36,7 @@ These are elements which precede the main verb or predicate of a clause. They di
 
 Elements in this category may or may not be syntactic subordinators (or "dependent markers"); they do not form a syntactic natural class. Rather, they are a morphological natural class in that they may host only the third-person ergative clitics (in contrast to subordinators).
 
-Examples: *k̲'ay* ??
+Examples: *ḵ'ay* ??
 
 ### Command
 
@@ -46,7 +46,7 @@ These are lexical items which stand alone as commands. They do not morphological
 
 These are verbs which take a single argument: an absolutive subject. They can take Series II suffixal inflection for that argument, and can also host attributives, the intransitive subject extraction suffix, and the third-plural semipronoun *-da*. They can host second-position clitics and nominal connective enclitics.
 
-Example: *bax̲*, *yook̲xw*
+Example: *bax̱*, *yooḵxw*
 
 ### Modal
 
@@ -58,7 +58,7 @@ Examples: *dim*, *ji*
 
 These are category-neutral elements which may precede nouns, verbs, and sometimes adverbs. They do not inflect or host any clitics, but may form a compound with a following noun or verb. In the verbal domain, they may be separated from the main verb by other preverbal material such as subordinators or auxiliaries.
 
-Examples: *sim*, *'wii*, *wag̲ayt*
+Examples: *sim*, *'wii*, *wag̱ayt*
 
 ### Noun
 
@@ -66,7 +66,7 @@ These are nouns. They can be used as verbal predicates, though they tend only to
 
 Currently these are also able to appear in special possessive constructions where *xw* or the T-morpheme appears after the noun and before the Series II possessor inflection.
 
-Examples: *gat*, *xbiist*, *lax̲'u*
+Examples: *gat*, *xbiist*, *lax̱'u*
 
 ### Number
 
@@ -100,15 +100,15 @@ This is an element which appear exclusively before verbs, modifying them. They c
 
 Under construction: These are nouns which are typically possessed, inflecting with Series II inflection or a nominal marker, to designate some property of, part of, or spatial relation to the possessor -- AND/OR these elements have a T-morpheme (or similar) immediately preceding their inflection.
 
-Examples: *sgan*, *sdo'o*, *g̲adaax*?
+Examples: *sgan*, *sdo'o*, *g̱adaax*?
 
 ### Psychological verb (?)
 
-An subtype of intransitive verb which exclusively takes a possessed noun *g̲oot-X* (X's heart) as its argument, yielding a mental or emotional predicate that holds of the possessor. Morphologically, these verbs combine with *g̲oot* using intransitive agreement and a connective (*=hl*), attributive morphology (*-m*), or through bare juxtaposition.
+An subtype of intransitive verb which exclusively takes a possessed noun *g̱oot-X* (X's heart) as its argument, yielding a mental or emotional predicate that holds of the possessor. Morphologically, these verbs combine with *g̱oot* using intransitive agreement and a connective (*=hl*), attributive morphology (*-m*), or through bare juxtaposition.
 
-The argument *g̲oot* cannot be extracted but its possessor can be. Upon extraction of the possessor, extraction morphology (*-it*) is obligatory on *g̲oot*, but need not appear on the psych verb.
+The argument *g̱oot* cannot be extracted but its possessor can be. Upon extraction of the possessor, extraction morphology (*-it*) is obligatory on *g̱oot*, but need not appear on the psych verb.
 
-Examples: *luu'am* (happy), *wantxw* (worry), *g̲etxw* (sad, disappointed)
+Examples: *luu'am* (happy), *wantxw* (worry), *g̱etxw* (sad, disappointed)
 
 ### Quantifier
 
@@ -124,7 +124,7 @@ These are verbs which take two arguments: an ergative subject and an absolutive 
 
 Some may inherently be T-class transitive verbs; those verbs which are not can additionally have the T-morpheme attached to them in combination with some preverbal trigger.
 
-Example: *gup*, *yoog̲an*
+Example: *gup*, *yoog̱an*
 
 ### (Verb)
 

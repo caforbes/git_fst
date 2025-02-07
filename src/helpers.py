@@ -1,5 +1,6 @@
 import re
 
+
 def unique(orig: list) -> list:
     new = []
     for x in orig:
@@ -7,16 +8,18 @@ def unique(orig: list) -> list:
             new.append(x)
     return new
 
+
 # Git text conversion functions
 
-UNDERSCORE = '_'
-# MACRON = 'macron'
+UNDERSCORE = "_"
+MACRON = "̱"
 LOW_LINE = "̲"
-UNDERLINE_OPTIONS = UNDERSCORE + LOW_LINE
+UNDERLINE_OPTIONS = UNDERSCORE + LOW_LINE + MACRON
+
 
 def join_words(string: str) -> str:
     """
-    Given a multi-word input string containing spaces, returns 
+    Given a multi-word input string containing spaces, returns
     that string as a single word with spaces removed and hyphens or
     apostrophes inserted according to Gitksan orthographic rules.
     Use to compare multi-word dict entries with text tokenized on space.
@@ -24,12 +27,12 @@ def join_words(string: str) -> str:
     """
     string = string.strip()
     # hyphen after plain stops
-    string = re.sub(r'([ptk]|ts|kw|k_) ([aeiou])', r"\1-\2", string)
-    string = re.sub(
-        "(k[" + UNDERLINE_OPTIONS + "]) ([aeiou])", r"\1-\2", string)
+    string = re.sub(r"([ptk]|ts|kw|k_) ([aeiou])", r"\1-\2", string)
+    string = re.sub("(k[" + UNDERLINE_OPTIONS + "]) ([aeiou])", r"\1-\2", string)
     # apostrophe before vowel-initial
     string = re.sub(r"([^']) ([aeiou])", r"\1'\2", string)
-    return re.sub(' ', '', string)
+    return re.sub(" ", "", string)
+
 
 def convert_to_underscore(string: str) -> str:
     """
@@ -38,6 +41,7 @@ def convert_to_underscore(string: str) -> str:
     """
     return standardize_back(string, underline=UNDERSCORE)
 
+
 def convert_to_lowline(string: str) -> str:
     """
     Replaces underscore with unicode combining lowline.
@@ -45,19 +49,30 @@ def convert_to_lowline(string: str) -> str:
     """
     return standardize_back(string, underline=LOW_LINE)
 
-def standardize_back(string: str, underline: str=UNDERSCORE) -> str:
+
+def convert_to_macron(string: str) -> str:
+    """
+    Replaces underscore with unicode combining macron below.
+    Returns a new string.
+    """
+    return standardize_back(string, underline=MACRON)
+
+
+def standardize_back(string: str, underline: str = UNDERSCORE) -> str:
     """
     Takes a string and replaces all instances of a possible underline
     diacritic with your choice of underline marker:
         UNDERSCORE = g_
         LOW_LINE = g̲
+        MACRON = g̱
     Returns a new string.
     """
     pat = "[" + UNDERLINE_OPTIONS + "]"
     return re.sub(pat, underline, string)
 
+
 def standardize_palatal(string: str, use_kya: bool = False) -> str:
-    """ 
+    """
     Input a string, returns a new string that standardizes the format
     of palatal stops in the Gitksan orthography.
         use_kya (True): gya and ky'a
@@ -66,8 +81,8 @@ def standardize_palatal(string: str, use_kya: bool = False) -> str:
     """
     if re.search("[gk]y?'?[iea]", string):
         # remove y from palatals before front vowels
-        string = re.sub("gy([ie])", r"g\1", string)
-        string = re.sub("ky'([ie])", r"k'\1", string)
+        string = re.sub(r"gy([ie])", r"g\1", string)
+        string = re.sub(r"ky'([ie])", r"k'\1", string)
         # standardize ky or k before low vowel a
         if use_kya:
             string = re.sub("ga", "gya", string)
@@ -80,6 +95,7 @@ def standardize_palatal(string: str, use_kya: bool = False) -> str:
 
 # Lexicon helpers
 
+
 def csv_to_neutral(string: str) -> str:
     """
     Returns a new string formatted using neutral orthographic standards.
@@ -88,19 +104,21 @@ def csv_to_neutral(string: str) -> str:
     Uses underscore to mark underlines (ascii-compliant).
     """
 
-    string = string.lstrip('.')  # removes initial apostrophe in dict/excel
+    string = string.lstrip(".")  # removes initial apostrophe in dict/excel
     string = standardize_back(string, UNDERSCORE)
     string = standardize_palatal(string, use_kya=False)
     return string
+
 
 def neutral_to_corpus(string: str) -> str:
     """
     Returns a new string formatted using dataset-consistent orthography.
     Git corpus uses combining low-line underline and "ga" convention.
     """
-    string = standardize_back(string, LOW_LINE)
+    string = standardize_back(string, MACRON)
     string = standardize_palatal(string, use_kya=False)
     return string
+
 
 def neutral_to_lexc(string: str) -> str:
     """
@@ -109,11 +127,12 @@ def neutral_to_lexc(string: str) -> str:
     Converts big t (t) to T and adds an initial flag diacritic.
     """
     string = join_words(string)
-    if re.search('^[\$aeiou]', string):  # add apostrophe to initial vowel
+    if re.search(r"^[\$aeiou]", string):  # add apostrophe to initial vowel
         string = "'" + string
-    if re.search(r'\(t\)', string):  # add big t flag and replace (t)->T
-        string = '@P.VAL.BIGT@' + re.sub(r'\(t\)', 'T', string)
+    if re.search(r"\(t\)", string):  # add big t flag and replace (t)->T
+        string = "@P.VAL.BIGT@" + re.sub(r"\(t\)", "T", string)
     return string
+
 
 def assign_stress(word_list: list, stress_string: str) -> list:
     """
@@ -128,49 +147,52 @@ def assign_stress(word_list: list, stress_string: str) -> list:
 
         result = []
         for index, word in enumerate(word_list):
-            
+
             # splits at beginning of V cluster if there is a VVC chunk
-            vowel_chunks = re.split(r'([aeiou]+[^aeiou]*)', word)
+            vowel_chunks = re.split(r"([aeiou]+[^aeiou]*)", word)
             # splits at beginning of V cluster if only open (C)VV
             if len(vowel_chunks) == 1:
-                vowel_chunks = re.split(r'([aeiou]+)', word)
+                vowel_chunks = re.split(r"([aeiou]+)", word)
             # removes all empty strings except initial empty onset
             vowel_chunks = [vowel_chunks[0]] + [x for x in vowel_chunks[1:] if x]
-            
+
             try:
                 stresses = stress_list[index]
             except IndexError:
                 stresses = stress_list[0]
             for stress_idx in stresses:
-                    vowel_chunks[stress_idx] = '$' + vowel_chunks[stress_idx]
-            result.append(''.join(vowel_chunks))
+                vowel_chunks[stress_idx] = "$" + vowel_chunks[stress_idx]
+            result.append("".join(vowel_chunks))
 
     except Exception as e:
         raise type(e)("Failed to import word: {}".format(word))
     return result
 
-def parse_stress_string(string: str) -> list: # list of list of stress indices
+
+def parse_stress_string(string: str) -> list:  # list of list of stress indices
     """
-    Parses a string of numbers indicating stress placement into a 
+    Parses a string of numbers indicating stress placement into a
     nested list (list of lists of integers).
         Inner list = stress for single wordform,
                         multiple stress possible.
         Outer list = corresponds to a list of wordforms in a dict entry,
                     there may be multiple words, each with own stress.
     """
-    if '?' in string: # unknown
+    if "?" in string:  # unknown
         return None
-    elif not string: # default monosyllable stress
+    elif not string:  # default monosyllable stress
         return [[1]]
-    
+
     # split into different wordforms
-    list_of_stresses = string.split('; ')
+    list_of_stresses = string.split("; ")
     # split into multiple stresses per word, convert to int
-    return [[int(num) for num in substring.split(',')]
-            for substring in list_of_stresses]
+    return [
+        [int(num) for num in substring.split(",")] for substring in list_of_stresses
+    ]
+
 
 def camelcase(string: str) -> str:
     """
     Converts a multiword string to a single word in camel case.
     """
-    return ''.join(wd.capitalize() for wd in string.split())
+    return "".join(wd.capitalize() for wd in string.split())

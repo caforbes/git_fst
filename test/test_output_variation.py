@@ -7,12 +7,13 @@ actual gitksan words. These tests use a version of the FST
 (v1 with dialect rules) as a dependency.
 """
 
+
 class TestGwiGu(TestFSTOutput):
 
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'Noun': [
+            "Noun": [
                 "'agw$i",
                 "'$aagwi",
                 "kw'$ihl",
@@ -43,12 +44,13 @@ class TestGwiGu(TestFSTOutput):
         self.assertEqual(len(self.fst.analyze("guila")), 0)
         self.assertEqual(len(self.fst.analyze("guula")), 0)
 
+
 class TestAE(TestFSTOutput):
 
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'Noun': [
+            "Noun": [
                 "w$a",
                 "l$an",
                 "ts'$ap",
@@ -56,9 +58,9 @@ class TestAE(TestFSTOutput):
                 "'$aks",
                 "and$aba'a",
             ],
-            'Prenoun': [
+            "Prenoun": [
                 "l$ax_",
-            ]
+            ],
         }
         super().setUpClass(BASIC_EW, test_stems)
 
@@ -82,12 +84,12 @@ class TestAE(TestFSTOutput):
         self.assertEqual(len(self.fst.analyze("eks")), 0)
 
     def test_lax_no_change(self):
-        self.assertNotEqual(len(self.fst.analyze("lax̲")), 0)
-        self.assertEqual(len(self.fst.analyze("lex̲")), 0)
+        self.assertNotEqual(len(self.fst.analyze("lax̱")), 0)
+        self.assertEqual(len(self.fst.analyze("lex̱")), 0)
 
     def test_gan_no_change(self):
-        self.assertNotEqual(len(self.fst.analyze("g̲an")), 0)
-        self.assertEqual(len(self.fst.analyze("g̲en")), 0)
+        self.assertNotEqual(len(self.fst.analyze("g̱an")), 0)
+        self.assertEqual(len(self.fst.analyze("g̱en")), 0)
 
 
 class TestEI(TestFSTOutput):
@@ -95,7 +97,7 @@ class TestEI(TestFSTOutput):
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'IntransitiveVerb': [
+            "IntransitiveVerb": [
                 "h$etxw",
                 "h$edin",
                 "h$e",
@@ -120,28 +122,28 @@ class TestEI(TestFSTOutput):
         self.assertNotEqual(len(self.fst.analyze("hehl")), 0)
         self.assertEqual(len(self.fst.analyze("hihl")), 0)
 
+
 class TestXsFortition(TestFSTOutput):
 
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'Noun': [
+            "Noun": [
                 "xs$an",
                 "'amxsiw$aa",
             ],
-            'Preverb': [
+            "Preverb": [
                 "g_$alxsi",
                 "g$uxws",
             ],
-            'IntransitiveVerb': [
+            "IntransitiveVerb": [
                 "xwsd$ins",
                 "h$ooxs",
                 "l$iluxws",
                 "g$itxs",
-            ]
+            ],
         }
         super().setUpClass(BASIC_EW, test_stems)
-
 
     def test_xsan_ksan(self):
         self.assertNotEqual(len(self.fst.analyze("xsan")), 0)
@@ -149,17 +151,17 @@ class TestXsFortition(TestFSTOutput):
 
     def test_ksan_ksen_tag(self):
         self.assertIn("xs$an+N", self.fst.analyze("ksan"))  # <XSKS>
-    
+
     def test_multiple_application(self):
         self.assertNotEqual(len(self.fst.analyze("ksen")), 0)
         self.assertIn("xs$an+N", self.fst.analyze("ksen"))  # <XSKS><AE>
 
     def test_galxsi_galksi(self):
-        self.assertNotEqual(len(self.fst.analyze("g̲alxsi")), 0)
-        self.assertNotEqual(len(self.fst.analyze("g̲alksi")), 0)
+        self.assertNotEqual(len(self.fst.analyze("g̱alxsi")), 0)
+        self.assertNotEqual(len(self.fst.analyze("g̱alksi")), 0)
 
     def test_galksi_tag(self):
-        self.assertIn("g_$alxsi+PVB", self.fst.analyze("g̲alksi"))  # <XSKS>
+        self.assertIn("g_$alxsi+PVB", self.fst.analyze("g̱alksi"))  # <XSKS>
 
     def test_hooxs_hooks(self):
         self.assertNotEqual(len(self.fst.analyze("hooxs")), 0)
@@ -173,7 +175,7 @@ class TestXsFortition(TestFSTOutput):
         self.assertNotEqual(len(self.fst.analyze("xwsdins")), 0)
         self.assertNotEqual(len(self.fst.analyze("kwsdins")), 0)
 
-    @unittest.skip('would like it to work, but not needed based on dict')
+    @unittest.skip("would like it to work, but not needed based on dict")
     def test_guxws_gukws(self):
         self.assertNotEqual(len(self.fst.analyze("guxws")), 0)
         self.assertNotEqual(len(self.fst.analyze("gukws")), 0)
@@ -186,25 +188,26 @@ class TestXsFortition(TestFSTOutput):
         self.assertNotEqual(len(self.fst.analyze("gitxs")), 0)
         self.assertEqual(len(self.fst.analyze("gitks")), 0)
 
+
 class TestKsLenition(TestFSTOutput):
 
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'Noun': [
+            "Noun": [
                 # "xs$an",
                 "'$aks",
                 "'amksiw$aa",
             ],
-            'Preverb': [
+            "Preverb": [
                 "g_$alksi",
                 "ksi",
                 "g$ukws",
             ],
-            'IntransitiveVerb': [
+            "IntransitiveVerb": [
                 "kwsd$ins",
                 "'$aat'iks",
-            ]
+            ],
         }
         super().setUpClass(BASIC_EW, test_stems)
 
@@ -216,8 +219,8 @@ class TestKsLenition(TestFSTOutput):
         self.assertIn("ksi+PVB", self.fst.analyze("xsi"))  # <XSKS>
 
     def test_galxsi_galksi(self):
-        self.assertNotEqual(len(self.fst.analyze("g̲alksi")), 0)
-        self.assertNotEqual(len(self.fst.analyze("g̲alxsi")), 0)
+        self.assertNotEqual(len(self.fst.analyze("g̱alksi")), 0)
+        self.assertNotEqual(len(self.fst.analyze("g̱alxsi")), 0)
 
     def test_amxsiwaa_amksiwaa(self):
         self.assertNotEqual(len(self.fst.analyze("amksiwaa")), 0)
@@ -245,7 +248,7 @@ class TestExcrescentRX(TestFSTOutput):
     @classmethod
     def setUpClass(cls):
         test_stems = {
-            'Noun': [
+            "Noun": [
                 "l$imx",
                 "gitxs$animx_",
                 "b$alx",
@@ -262,8 +265,8 @@ class TestExcrescentRX(TestFSTOutput):
         self.assertIn("l$imx+N", self.fst.analyze("limix"))  # <IMIX>
 
     def test_imx_imax(self):
-        self.assertNotEqual(len(self.fst.analyze("gitxsanimx̲")), 0)
-        self.assertNotEqual(len(self.fst.analyze("gitxsanimax̲")), 0)
+        self.assertNotEqual(len(self.fst.analyze("gitxsanimx̱")), 0)
+        self.assertNotEqual(len(self.fst.analyze("gitxsanimax̱")), 0)
 
     def test_ilx_ilix(self):
         self.assertNotEqual(len(self.fst.analyze("balx")), 0)
@@ -274,5 +277,5 @@ class TestExcrescentRX(TestFSTOutput):
         self.assertEqual(len(self.fst.analyze("bahlix")), 0)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
